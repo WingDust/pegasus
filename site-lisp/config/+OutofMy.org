@@ -1,0 +1,9 @@
+#+TITLE:  Outof My
+
+
+* doom
+#+begin_src emacs-lisp
+(add-to-list 'load-path config-path)
+(require '+text)
+#+end_src
+
