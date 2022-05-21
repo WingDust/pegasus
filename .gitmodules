@@ -1,0 +1,6 @@
+[submodule "site-lisp/extension/nano-theme"]
+	path = site-lisp/extension/nano-theme
+	url = https://github.com/rougier/nano-theme.git
+[submodule "site-lisp/extension/awesome-tray"]
+	path = site-lisp/extension/awesome-tray
+	url = https://github.com/manateelazycat/awesome-tray

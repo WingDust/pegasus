@@ -94,15 +94,23 @@
 
 (setq x-underline-at-descent-line t)
 
-(add-to-list 'load-path "H:/Work/framework/elegant-emacs")
+;;(add-to-list 'load-path "H:/Work/framework/elegant-emacs")
 
 ;; (require 'elegant)
 
 ;; (add-to-list 'load-path "H:/Work/framework/nano-emacs")
 
 ;; (add-to-list 'load-path "H:/Work/framework/nano-modeline")
-(add-to-list 'load-path "H:/Work/framework/nano-theme")
-(add-to-list 'custom-theme-load-path "H:/Work/framework/nano-theme")
+
+(setq site-lisp "~/elegant/site-lisp/")
+
+(setq config-path (concat site-lisp "config/"))
+(setq extension-path (concat site-lisp "extension/"))
+
+(message "run")
+
+(add-to-list 'load-path (concat extension-path  "nano-theme"))
+(add-to-list 'custom-theme-load-path (concat extension-path  "nano-theme"))
 
 ;; (require 'nano)
 ;; (nano-mode)
@@ -123,10 +131,6 @@
 ;; (require 'nano-modeline)
 ;; (nano-modeline-mode)
 ;; (setq nano-modeline-position 'bottom)
-;; (require 'nano-theme-light)
-;; (nano-theme)
-;; (nano-dark)
-;; (load-theme 'nano-light t)
 
 
 (require 'nano-theme)
@@ -208,7 +212,7 @@
 
 
 
-(setq config-path "H:/Work/framework/")
+;;(setq config-path "H:/Work/framework/")
 ;; 配置的加载顺序
 (setq configs '("+OutofMy.org" "+Buildin.org" "+UI.org" "+Utils.org" "+Setting.org" "+Keybinding.org" "+Mode.org"))
 

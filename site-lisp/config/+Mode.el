@@ -14,7 +14,8 @@
 (require 'evil)
 (evil-mode)
 ;; (setq-default evil-disable-insert-state-bindings t)
-;; (define-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
 
 (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
@@ -47,7 +48,6 @@
 (require 'marginalia)
 (marginalia-mode)
 
-;;;###autoload
 (require 'corfu)
 (corfu-global-mode)
 
@@ -55,7 +55,6 @@
 
 (setq tab-always-indent 'complete)
 
-;;;###autoload
 (require 'kind-all-the-icons)
 (add-to-list 'corfu-margin-formatters 
                #'kind-all-the-icons-margin-formatter)
@@ -70,9 +69,15 @@
       '((":TODO:" . ((lambda (tag) (svg-tag-make "TODO"))))))
 
 ;; (global-hide-mode-line-mode 1)
+;;;###autoload
 (require 'awesome-tray)
 (awesome-tray-mode 1)
 (setq
  awesome-tray-active-modules '("mode-name" "location" "buffer-name")
  awesome-tray-mode-line-active-color "White"
  )
+
+;; (global-hide-mode-line-mode 1)
+;;;###autoload
+(require 'tempel)
+(setq tempel-path (concat config-path "templates"))

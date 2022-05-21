@@ -9,6 +9,8 @@
                          ("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
                          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
                          ("org-cn" . "http://elpa.zilongshanren.com/org/")
+                         ("stable-melpa" . "http://elpa.zilongshanren.com/stable-melpa/")
+                         ("nongnu" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ))
 #+end_src
 * 我只下载不加载，所以这一行要被注释掉
@@ -48,9 +50,8 @@
     )
   )
 (add-packages-to-load-path "~/.emacs.d/elpa")
-;; (add-packages-to-load-path "H:/Work/framework/site-lisp/extension")
-(add-packages-to-load-path (concat config-path "site-lisp/extension"))
-(add-to-list 'load-path  (concat config-path "site-lisp/extension"))
+(add-packages-to-load-path extension-path )
+(add-to-list 'load-path  extension-path )
 #+end_src
 
 * 取消默认 

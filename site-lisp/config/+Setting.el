@@ -5,6 +5,8 @@
                          ("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
                          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")
                          ("org-cn" . "http://elpa.zilongshanren.com/org/")
+                         ("stable-melpa" . "http://elpa.zilongshanren.com/stable-melpa/")
+                         ("nongnu" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ))
 
 ;; (package-initialize)
@@ -40,9 +42,8 @@
     )
   )
 (add-packages-to-load-path "~/.emacs.d/elpa")
-;; (add-packages-to-load-path "H:/Work/framework/site-lisp/extension")
-(add-packages-to-load-path (concat config-path "site-lisp/extension"))
-(add-to-list 'load-path  (concat config-path "site-lisp/extension"))
+(add-packages-to-load-path extension-path )
+(add-to-list 'load-path  extension-path )
 
 (set-scroll-bar-mode nil)
 (tool-bar-mode -1)
