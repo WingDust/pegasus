@@ -1,0 +1,173 @@
+* Org
+
+- org-indent-mode
+#+begin_quote
+这个是在写 Org mode 自动缩进标题、列表
+#+end_quote
+- 
+
+* 在 org mode 的代码块中使用那个代码块的语言的缩进方式
+#+begin_src emacs-lisp
+(setq org-src-tab-acts-natively nil);开启代码块语法缩进
+#+end_src
+
+* 代码块中缩进范围
+#+begin_src emacs-lisp
+(setq org-edit-src-content-indentation 2);代码块初始缩进范围
+#+end_src
+* 关闭出错时的提示声
+#+begin_src emacs-lisp
+(setq ring-bell-function 'ignore)
+#+end_src
+
+* 隐藏 modeline
+#+begin_src emacs-lisp
+(setq-default mode-line-format nil)
+#+end_src
+* 设置 mode line 高度
+#+begin_src emacs-lisp
+(setq-face-attribute 'mode-line  nil :height 0.5)
+#+end_src
+* 设置 mode line 背景颜色
+#+begin_src emacs-lisp
+(setq-face-attribute 'mode-line  nil :background "light blue")
+#+end_src
+* 在 mode line 中显示当前光标的坐标
+#+begin_src emacs-lisp
+(column-number-mode t)
+#+end_src
+
+
+* 显示 headline (headline 默认是不显示的)
+#+begin_src emacs-lisp
+(setq-default head-line-format 1)
+#+end_src
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Header-Lines.html#Header-Lines][Window Header Lines]]
+
+* 禁用 head-line 在 N A N O Emacs 中
+#+begin_src emacs-lisp
+(setq-default header-line-format nil)
+;; 只在当前 buffer 禁用
+(setq header-line-format nil)
+#+end_src
+
+
+* 获取当前窗口所有显示的 buffer
+#+begin_src emacs-lisp
+
+(defun buffer-in-window-list ()
+  (let (buffers)
+    (walk-windows (lambda (window) (push (window-buffer window) buffers)) t t)
+    buffers))
+
+(defun display-all-buffers ()
+  (interactive)
+  (let (buffers-in-window (buffer-in-window-list))
+    (dolist (buffer (buffer-list))
+      (when (and (not (string-match "\\`[[:space:]]*\\*" (buffer-name buffer)))
+                 (not (memq buffer buffers-in-window)))
+        (set-window-buffer (split-window (get-largest-window)) buffer)))
+    (balance-windows)))
+#+end_src
+- [[https://stackoverflow.com/questions/12186713/show-all-open-buffers-in-emacs][Show all open buffers in Emacs]]
+
+* 获取所有可用的字体 list
+#+begin_src emacs-lisp
+(font-family-list)
+(seq-filter (lambda (font)
+              (when-let ((info (font-info font)))
+                (string-match-p "spacing=100" (aref info 1))))
+            (font-family-list))
+;; windows
+(require 'subr-x)
+(seq-filter (lambda (font)
+              (when-let ((info (font-info font)))
+                (string-match-p "-mono-" (aref info 0))))
+            (font-family-list))
+#+end_src
+- [[https://emacs.stackexchange.com/questions/50212/is-there-a-better-way-in-emacs-lisp-to-print-the-list-of-monospace-fonts-in-a-se][Is there a better way in Emacs Lisp to print the list of monospace fonts in a separate buffer?]]
+* 查看所有可用的主题
+#+begin_src emacs-lisp
+(custom-available-theme)
+#+end_src
+- [[https://stackoverflow.com/questions/22574179/how-do-i-get-a-list-of-available-themes-in-emacs-24][How do I get a list of available themes in Emacs 24?]]
+* 加载主题文件
+#+begin_src emacs-lisp
+(add-to-list 'custom-theme-load-path "H:/Work/framework/nano-theme")
+
+(load-theme 'nano-dark t)
+#+end_src
+- [[https://emacs.stackexchange.com/questions/28849/theme-not-loading-on-startup][Theme not loading on startup]]
+
+* 定制 modeline
+- [[http://emacs-fu.blogspot.com/2011/08/customizing-mode-line.html][customizing the mode-line]]
+* 删除文件到 trash
+#+begin_src emacs-lisp
+(setq delete-by-moving-to-trash t)
+#+end_src
+* package-install 安装路径为 ~/.emacs.d/elpa/package_name+date
+#+begin_quote
+- =~/.emacs.d/elpa/archives= =~/.emacs.d/elpa/gnupg= 不是包文件，是配置文件
+#+end_quote
+
+* 指定范围read only
+#+begin_src emacs-lisp
+(defun set-region-read-only (begin end)
+  "Sets the read-only text property on the marked region.
+
+Use `set-region-writeable' to remove this property."
+  ;; See http://stackoverflow.com/questions/7410125
+  (interactive "r")
+  (let ((modified (buffer-modified-p)))
+    (add-text-properties begin end '(read-only t))
+    (set-buffer-modified-p modified)))
+
+(defun set-region-writeable (begin end)
+  "Removes the read-only text property from the marked region.
+
+Use `set-region-read-only' to set this property."
+  ;; See http://stackoverflow.com/questions/7410125
+  (interactive "r")
+  (let ((modified (buffer-modified-p))
+        (inhibit-read-only t))
+    (remove-text-properties begin end '(read-only t))
+    (set-buffer-modified-p modified)))
+#+end_src
+- [[https://www.reddit.com/r/emacs/comments/f0gm1h/readonly_region_in_a_buffer/][read-only region in a buffer?]]
+* 删除空行
+- =flush-line= + =^$=
+* 保存含有字符的行
+- =keep-line= + =wordname=
+* evil
+** evil-goggles
+#+begin_quote
+显示evil 操作时范围
+#+end_quote
+** evil-exchange
+#+begin_quote
+交换两个选区
+#+end_quote
+
+** evil-lion
+#+begin_quote
+将 以 === 对齐代码
+#+end_quote
+
+
+** evil-args
+#+begin_quote
+在函数中的参数光标跳转
+#+end_quote
+- [[https://emacs-china.org/t/topic/8765][函数参数快速跳转与选择]]
+
+** evil-anzu
+#+begin_quote
+显示vim匹配个数
+#+end_quote
+
+** evil-traces
+#+begin_quote
+显示 evil 命令下匹配到的对象
+#+end_quote
+
+

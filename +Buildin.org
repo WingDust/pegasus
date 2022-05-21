@@ -1,0 +1,23 @@
+* lexical
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
+
+* 高亮当前行
+#+begin_src emacs-lisp
+(global-hl-line-mode t)
+#+end_src
+
+* Emacs 自动加载外部程序对文件的修改
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+#+end_src
+
+* Emacs 最近使用过的文件
+#+begin_src emacs-lisp
+(recentf-mode)
+#+end_src
+* 保存最近使用过命令
+#+begin_src emacs-lisp
+(savehist-mode)
+#+end_src

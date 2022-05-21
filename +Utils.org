@@ -1,0 +1,29 @@
+* 将路径 .org 转成 .el 文件
+#+begin_src emacs-lisp
+(defun org-file-extension-to-elisp-file-extension (file-name)
+        (concat
+        (file-name-sans-extension file-name) ".el")
+)
+(org-file-extension-to-elisp-file-extension "H:/Work/framework/Key.org")
+#+end_src
+* 对给出的路径过滤出想要的文件路径
+#+begin_src emacs-lisp
+(defun filter-path (path filter)
+          (mapcar
+           (lambda (dir)
+                (concat (file-name-as-directory path) dir)
+             )
+                (cl-remove-if-not
+                        #'(lambda (subdir)
+                        (member subdir
+                                filter
+                                )
+                        )
+                        (directory-files  path)
+                        )
+           )
+  )
+
+(filter-path "H:/Work/framework/" '("+Setting.org" "+Keybinding.org"))
+
+#+end_src
