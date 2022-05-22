@@ -10,11 +10,8 @@
 ;;(global-set-key (kbd "M-x") 'counsel-M-x)
 ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;; (global-set-key (kbd "C-s") 'counsel-line)
+(global-set-key (kbd "SPC f r") 'counsel-recentf)
 (global-set-key "\C-s" 'swiper)
-#+end_src
-* all-the-icons
-#+begin_src emacs-lisp
-
 #+end_src
 
 
@@ -32,6 +29,16 @@
 
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 #+end_src
+** undo-fu
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'undo-fu)
+
+;;(global-undo-tree-mode)
+;;(evil-set-undo-system 'undo-tree)
+(setq evil-set-undo-system 'undo-fu)
+#+end_src
+
 ** evil-matchit
 #+begin_src emacs-lisp
 ;;;###autoload
@@ -42,11 +49,28 @@
 (evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
 #+end_src
 
-* alda
+** alda
 #+begin_src emacs-lisp
 ;;;###autoload
 (require 'alda-mode)
 (setq alda-binary-location "E:/alda/alda.exe")
+#+end_src
+
+* evil-collection
+#+begin_src emacs-lisp
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+
+;;;###autoload
+(require 'evil-collection)
+(evil-collection-init)
+
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
 #+end_src
 * vertico
 #+begin_src emacs-lisp
@@ -87,6 +111,10 @@
 
 (setq tab-always-indent 'complete)
 #+end_src
+* all-the-icons
+#+begin_src emacs-lisp
+
+#+end_src
 ** corfu icon
 #+begin_src emacs-lisp
 (require 'kind-all-the-icons)
@@ -98,7 +126,7 @@
 ;;;###autoload
 (require 'svg-lib)
 #+end_src
-* svg-tag-mode
+** svg-tag-mode
 #+begin_src emacs-lisp
 ;;;###autoload
 (require 'svg-tag-mode)

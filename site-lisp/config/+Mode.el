@@ -6,9 +6,8 @@
 ;;(global-set-key (kbd "M-x") 'counsel-M-x)
 ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;; (global-set-key (kbd "C-s") 'counsel-line)
+(global-set-key (kbd "SPC f r") 'counsel-recentf)
 (global-set-key "\C-s" 'swiper)
-
-
 
 ;;;###autoload
 (require 'evil)
@@ -23,6 +22,13 @@
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 
 ;;;###autoload
+(require 'undo-fu)
+
+;;(global-undo-tree-mode)
+;;(evil-set-undo-system 'undo-tree)
+(setq evil-set-undo-system 'undo-fu)
+
+;;;###autoload
 (require 'evil-matchit)
 
 (global-evil-matchit-mode 1)
@@ -32,6 +38,19 @@
 ;;;###autoload
 (require 'alda-mode)
 (setq alda-binary-location "E:/alda/alda.exe")
+
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+  ;;;###autoload
+  (require 'evil-collection)
+  (evil-collection-init)
+
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
 
 ;;;###autoload
 (require 'vertico)
@@ -54,6 +73,8 @@
 (setq corfu-auto t)
 
 (setq tab-always-indent 'complete)
+
+
 
 (require 'kind-all-the-icons)
 (add-to-list 'corfu-margin-formatters 

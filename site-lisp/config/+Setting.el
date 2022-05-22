@@ -8,6 +8,7 @@
                          ("stable-melpa" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ("nongnu" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ))
+(setq package-check-signature nil)
 
 ;; (package-initialize)
 
@@ -70,3 +71,6 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)

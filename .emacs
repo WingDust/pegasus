@@ -291,7 +291,10 @@
 
 ;; (add-hook 'window-configuration-change-hook 'reset-margins)
 
-(menu-bar--display-line-numbers-mode-relative)
+;; (menu-bar--display-line-numbers-mode-relative)
 ;; org-tree-slide
 ;; (require 'f)
+
+
+
 

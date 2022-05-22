@@ -12,7 +12,9 @@
                          ("stable-melpa" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ("nongnu" . "http://elpa.zilongshanren.com/stable-melpa/")
                          ))
+(setq package-check-signature nil)
 #+end_src
+- [[https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure][How to proceed on package.el signature check failure]]
 * 我只下载不加载，所以这一行要被注释掉
 #+begin_src emacs-lisp
 ;; (package-initialize)
@@ -108,4 +110,9 @@
 (setq create-lockfiles nil)
 #+end_src
 - [[https://emacs-china.org/t/topic/17640][关于修改文件后生成的.#文件]]
+* 相对行号
+#+begin_src emacs-lisp
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode)
+#+end_src
 
