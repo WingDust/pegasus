@@ -6,8 +6,17 @@
 ;;(global-set-key (kbd "M-x") 'counsel-M-x)
 ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;; (global-set-key (kbd "C-s") 'counsel-line)
-(global-set-key (kbd "SPC f r") 'counsel-recentf)
+;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
 (global-set-key "\C-s" 'swiper)
+
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
 
 ;;;###autoload
 (require 'evil)
@@ -39,18 +48,9 @@
 (require 'alda-mode)
 (setq alda-binary-location "E:/alda/alda.exe")
 
-(setq evil-want-integration t)
-(setq evil-want-keybinding nil)
-  ;;;###autoload
-  (require 'evil-collection)
-  (evil-collection-init)
-
-;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-;;
-;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
-;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-;;
-;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;;###autoload
+(require 'evil-collection)
+(evil-collection-init)
 
 ;;;###autoload
 (require 'vertico)
