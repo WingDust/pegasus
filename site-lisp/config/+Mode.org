@@ -16,6 +16,9 @@
 
 
 * evil
+#+begin_quote
+- 不用 evil-exchange ，使用 vim 正则捕获组代替
+#+end_quote
 #+begin_src emacs-lisp
 
 ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
