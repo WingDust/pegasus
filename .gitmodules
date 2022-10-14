@@ -1,0 +1,21 @@
+[submodule "site-lisp/extension/auto-save"]
+	path = site-lisp/extension/auto-save
+	url = https://github.com/manateelazycat/auto-save.git
+[submodule "site-lisp/extension/awesome-tray"]
+	path = site-lisp/extension/awesome-tray
+	url = https://github.com/manateelazycat/awesome-tray.git
+[submodule "site-lisp/extension/lsp-bridge"]
+	path = site-lisp/extension/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git
+[submodule "site-lisp/extension/nano-theme"]
+	path = site-lisp/extension/nano-theme
+	url = https://github.com/rougier/nano-theme.git
+[submodule "site-lisp/extension/snails"]
+	path = site-lisp/extension/snails
+	url = https://github.com/manateelazycat/snails.git
+[submodule "site-lisp/extension/smart-align"]
+	path = site-lisp/extension/smart-align
+	url = https://github.com/manateelazycat/smart-align.git
+[submodule "site-lisp/extension/yasnippet"]
+	path = site-lisp/extension/yasnippet
+	url = https://github.com/joaotavora/yasnippet.git

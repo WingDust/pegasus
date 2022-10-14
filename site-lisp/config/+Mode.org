@@ -1,0 +1,355 @@
+* lexical
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
+* counsel
+#+begin_src emacs-lisp
+      ;;;###autoload
+      (require 'counsel)
+      ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+      ;;(global-set-key (kbd "M-x") 'counsel-M-x)
+      ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      ;; (global-set-key (kbd "C-s") 'counsel-line)
+      ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
+      (global-set-key "\C-s" 'swiper)
+
+    (defun counsel-home()
+      (interactive)
+      (counsel-fzf nil "~")
+      )
+  (setq counsel-fzf-cmd "fd --type f --hidden --follow --exclude .git --color never '%s'")
+
+#+end_src
+
+
+* evil
+#+begin_quote
+- 不用 evil-exchange ，使用 vim 正则捕获组代替
+#+end_quote
+#+begin_src emacs-lisp
+
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+
+;;;###autoload
+(require 'evil)
+(evil-mode)
+;; (setq-default evil-disable-insert-state-bindings t)
+;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+
+(define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
+
+(define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
+#+end_src
+** undo-fu
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'undo-fu)
+
+;;(global-undo-tree-mode)
+;;(evil-set-undo-system 'undo-tree)
+(setq evil-set-undo-system 'undo-fu)
+#+end_src
+
+** evil-matchit
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'evil-matchit)
+
+(global-evil-matchit-mode 1)
+
+(evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
+#+end_src
+** evil-nerd-commenter
+
+#+begin_src emacs-lisp
+  ;;;###autoload
+  (require 'evil-nerd-commenter)
+
+  ;(global-evil-matchit-mode 1)
+(global-set-key (kbd "C-;") 'evilnc-comment-or-uncomment-lines)
+
+
+  ;(evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
+#+end_src
+
+** alda
+#+begin_src emacs-lisp
+;;;###autoload
+;;(require 'alda-mode)
+;;(setq alda-binary-location "E:/alda/alda.exe")
+#+end_src
+
+** evil-collection
+#+begin_src emacs-lisp
+
+;;;###autoload
+;;(require 'evil-collection)
+;;(evil-collection-init)
+
+#+end_src
+
+* goto-last-point
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'goto-last-point)
+#+end_src
+* vertico
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'vertico)
+(vertico-mode)
+
+#+end_src
+** 配置 esc 退出当前 minibuffer
+#+begin_src emacs-lisp
+(define-key vertico-map (kbd "<escape>") 'minibuffer-keyboard-quit)
+#+end_src
+- [[https://github.com/emacs-evil/evil/pull/861][Use evil-esc in minibuffers]]
+
+* orderless
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'orderless)
+;;(orderless-mode)
+(setq completion-styles '(orderless))
+#+end_src
+
+* marginalia
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'marginalia)
+(marginalia-mode)
+#+end_src
+* corfu
+#+begin_quote
+补全
+#+end_quote
+#+begin_src emacs-lisp
+(require 'corfu)
+(corfu-mode)
+
+(setq corfu-auto t)
+
+(setq tab-always-indent 'complete)
+#+end_src
+* all-the-icons
+#+begin_src emacs-lisp
+
+#+end_src
+** corfu icon
+#+begin_src emacs-lisp
+(require 'kind-all-the-icons)
+(add-to-list 'corfu-margin-formatters 
+               #'kind-all-the-icons-margin-formatter)
+#+end_src
+* svg-lib
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'svg-lib)
+#+end_src
+** svg-tag-mode
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'svg-tag-mode)
+
+(setq svg-tag-tags
+      '((":TODO:" . ((lambda (tag) (svg-tag-make "TODO"))))))
+#+end_src
+* awesome-tray-mode
+#+begin_src emacs-lisp
+;; (global-hide-mode-line-mode 1)
+;;;###autoload
+(require 'awesome-tray)
+(awesome-tray-mode 1)
+(setq
+ awesome-tray-active-modules '("mode-name" "location" "buffer-name")
+ awesome-tray-mode-line-active-color "White"
+ )
+#+end_src
+* tempel 
+#+begin_src emacs-lisp
+;; (global-hide-mode-line-mode 1)
+;;;###autoload
+;;(require 'tempel)
+;;(setq tempel-path (concat config-path "templates"))
+
+#+end_src
+* smart-align 
+#+begin_src emacs-lisp
+;; (global-hide-mode-line-mode 1)
+;;;###autoload
+(require 'smart-align)
+
+#+end_src
+* find-file-in-project
+#+begin_src emacs-lisp
+  ;;(ivy-mode 1)
+
+  ;;;###autoload
+  ;;(require 'find-file-in-project)
+  ;;(setq ffip-project-root "~/")
+
+#+end_src
+* exec-path-from-shell
+#+begin_src emacs-lisp
+  ;;;###autoload
+  (require 'exec-path-from-shell)
+    (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+#+end_src
+* color-rg
+#+begin_src emacs-lisp
+  ;;(ivy-mode 1)
+
+  ;;;###autoload
+  (require 'color-rg)
+
+#+end_src
+* snails
+#+begin_src emacs-lisp
+    ;;;###autoload
+    (require 'snails)
+    (setq snails-show-with-frame nil)
+  (add-hook 'snails-mode-hook
+	    (lambda ()
+	      ;;(evil-insert-state)
+	      (evil-emacs-state)
+	      )
+	    )
+  (with-eval-after-load 'snails
+    (define-key snails-mode-map (kbd "C-n") #'snails-select-next-item)
+    (define-key snails-mode-map (kbd "C-p") #'snails-select-prev-item)
+    )
+#+end_src
+- https://github.com/WeissP/.emacs.d-obsolete/blob/de441f64defa9fe7e17766890607a55c6051a00a/configs/weiss_keybindings%3Csnails.el
+* auto-save
+#+begin_src emacs-lisp
+  ;;(ivy-mode 1)
+
+  ;;;###autoload
+  (require 'auto-save)
+  (auto-save-enable)
+(setq
+ auto-save-idle 3
+)
+
+#+end_src
+
+* yasnippet
+#+begin_src emacs-lisp
+
+    (require 'yasnippet)
+    (yas-global-mode 1)
+#+end_src
+* lsp-bridge
+#+begin_src emacs-lisp
+
+    (require 'lsp-bridge)
+    (global-lsp-bridge-mode)
+#+end_src
+
+* tempel
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'tempel)
+(setq tempel-path (concat config-path "templates"))
+
+#+end_src
+
+* polymode
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'polymode)
+#+end_src
+
+** quarto-mode
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'quarto-mode)
+(add-to-list 'auto-mode-alist '("\\.qmd\\'" . poly-quarto-mode))
+#+end_src
+
+** Markdown
+*** markdown-mode
+#+begin_src emacs-lisp
+  (autoload 'markdown-mode "markdown-mode"
+     "Major mode for editing Markdown files" t)
+  (add-to-list 'auto-mode-alist
+	       '("\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'" . markdown-mode))
+
+  (autoload 'gfm-mode "markdown-mode"
+     "Major mode for editing GitHub Flavored Markdown files" t)
+  (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+#+end_src
+** SQL
+** flymake-sqlfluff
+#+begin_src emacs-lisp
+(require 'flymake-sqlfluff)
+(add-hook 'sql-mode-hook #'flymake-sqlfluff-load)
+
+#+end_src
+
+** flymake-posframe
+#+begin_src emacs-lisp
+;(require 'flymake-posframe)
+;(add-hook 'flymake-mode-hook #'flymake-posframe-mode)
+#+end_src
+** 
+
+* util
+
+** load-package
+#+begin_src emacs-lisp
+
+  (require 'org-element)
+
+    (defun p(file) 
+      (interactive)
+      (setq org-ast
+       (with-temp-buffer
+    (insert-file-contents file)
+    (org-mode)
+    ;;(org-element-parse-buffer)
+
+       (org-element-map (org-element-parse-buffer) 'headline
+	 (lambda (x)
+	   (org-element-property :raw-value x)
+	   ;;(princ (org-element-property :raw-value x))
+	   ;;(terpri )
+    ))
+    )
+       )
+      ;;(print org-ast)
+      )
+
+
+    ;;(setq error-package '())
+
+
+      ;; 错误处理
+    ;; (mapc
+    ;;  (lambda (x)
+    ;;    (condition-case err
+    ;;   (package-install x)
+    ;;      (error
+    ;; (push x error-package)
+    ;; )
+    ;;  )
+    ;;     )
+    ;;  (p
+
+    ;;     (concat config-path "+Mode.org")
+    ;;     )
+    ;;    )
+
+#+end_src
+

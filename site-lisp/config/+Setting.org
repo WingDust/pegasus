@@ -1,0 +1,122 @@
+* lexical
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
+* elpa 源 
+#+begin_src emacs-lisp
+  (require 'package)
+  ;; 修改 package-archives 后应 package-refresh-contents 
+  ;; package--with-response-buffer-1: http://mirrors.ustc.edu.cn/elpa/melpa/find-file-in-project-20220430.107.el: Not found
+  ;; 上面就是这个原因
+
+  (setq package-archives '(
+		       ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+		       ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+		       ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
+		       ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
+		       ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
+		       ))
+  (setq package-check-signature nil)
+#+end_src
+- [[https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure][How to proceed on package.el signature check failure]]
+* 我只下载不加载，所以这一行要被注释掉
+#+begin_src emacs-lisp
+;; (package-initialize)
+#+end_src
+* 添加请求包路径
+#+begin_src emacs-lisp
+(defun add-packages-to-load-path (package-path)
+  (let* ((subdir
+          (mapcar
+           (lambda (dir)
+                (concat (file-name-as-directory package-path) dir)
+             )
+                (cl-remove-if
+                        #'(lambda (subdir)
+                        (member subdir
+                                '(
+                                "gnupg"
+                                "archives"
+                                "."
+                                ".."
+                                )
+                                )
+                        )
+                        (directory-files  package-path)
+                        )
+           )
+         ))
+
+    (mapc
+     (lambda (i)
+    (add-to-list 'load-path i)
+       )
+     subdir
+        )
+    )
+  )
+(add-packages-to-load-path "~/.emacs.d/elpa")
+(add-packages-to-load-path extension-path )
+(add-to-list 'load-path  extension-path )
+#+end_src
+
+* 取消默认 
+#+begin_src emacs-lisp
+(set-scroll-bar-mode nil)
+(tool-bar-mode -1)
+(menu-bar-mode -1)                      ;禁用菜单栏
+#+end_src
+
+* 禁用 mode line
+#+begin_src emacs-lisp
+(setq-default mode-line-format nil)
+#+end_src
+
+* COMMENT 禁用 header line
+#+begin_src emacs-lisp
+(setq-default header-line-format nil)
+;; Emacs默认是禁用
+#+end_src
+* 使用 y/n 代替 yes/no  
+#+begin_src emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+;以 y/n代表 yes/no
+#+end_src
+* 取消加载 Emacs 默认启动页面  
+#+begin_src emacs-lisp
+(setq inhibit-splash-screen t)         ; hide welcome screen
+#+end_src
+* 删除文件到 trash
+#+begin_src emacs-lisp
+(setq delete-by-moving-to-trash t)
+#+end_src
+* 关闭出错时的提示声
+#+begin_src emacs-lisp
+(setq ring-bell-function 'ignore)
+#+end_src
+* 让鼠标滚动更好用
+#+begin_src emacs-lisp
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+#+end_src
+* 关闭自动生产的保存文件
+#+begin_src emacs-lisp
+(setq auto-save-default nil)
+#+end_src
+* 取消显示 scratch buffer 的默认提示信息
+#+begin_src emacs-lisp
+(setq initial-scratch-message nil)
+#+end_src
+* 取消生成 <filename>~,#<filename># .+<filename>
+#+begin_src emacs-lisp
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq create-lockfiles nil)
+#+end_src
+- [[https://emacs-china.org/t/topic/17640][关于修改文件后生成的.#文件]]
+* 相对行号
+#+begin_src emacs-lisp
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode)
+#+end_src
+

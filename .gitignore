@@ -1,0 +1,14 @@
+# mac
+.DS_Store
+
+# emacs genrate
+url/
+auto-save-list/
+elpa/
+eshell/
+request/
+recentf
+vimish-fold/
+
+# emacs savehist
+history

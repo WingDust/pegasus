@@ -1,0 +1,66 @@
+#+TITLE:  U
+
+
+* buffer 添加边距
+#+begin_src emacs-lisp
+(setq default-frame-alist '(
+                            ;; (internal-border-width . 18)
+                            ))
+#+end_src
+* 更换 Emacs 原生换行显示为虚线
+#+begin_src emacs-lisp
+(define-fringe-bitmap 'left-curly-arrow
+  [#b00110000
+   #b00110000
+   #b00000000
+   #b00110000
+   #b00110000
+   #b00000000
+   #b00110000
+   #b00110000])
+(define-fringe-bitmap 'right-curly-arrow
+  [#b00110000
+   #b00110000
+   #b00000000
+   #b00110000
+   #b00110000
+   #b00000000
+   #b00110000
+   #b00110000])
+;; (define-fringe-bitmap 'left-curly-arrow
+;;   [#b00000000
+;;    #b00001000
+;;    #b00001000
+;;    #b00001110
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000])
+
+;; (define-fringe-bitmap 'right-curly-arrow
+;;   [#b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b01110000
+;;    #b00010000
+;;    #b00010000
+;;    #b00000000])
+;; (define-fringe-bitmap 'left-curly-arrow
+;;   [#b00000000
+;;    #b00001000
+;;    #b00001000
+;;    #b00001110
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000])
+#+end_src
+- [[https://emacs-china.org/t/topic/451][美化Emacs 很长一行代码换行时的图标]]
+- [[https://emacs-china.org/t/emacs/3200][修改emacs丑陋的换行符]]
+- 
+* 修改 window divider 分割线颜色
+#+begin_src emacs-lisp
+;; (set-face-foreground 'vertical-border "#282c34")
+#+end_src
+
