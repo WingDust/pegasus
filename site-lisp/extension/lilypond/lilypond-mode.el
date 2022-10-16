@@ -1,3 +1,6 @@
+
+
+
 ;;;; lilypond-mode.el -- Major mode for editing GNU LilyPond music scores
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;  

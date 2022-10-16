@@ -5,6 +5,19 @@
 (require 'ob-tangle)
 (require 'rx)
 
+(load-file  "./utils/os.el")
+(load-file  "./utils/core.el")
+
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
+
 
 (if (eq system-type 'windows-nt)
     (progn
@@ -30,11 +43,11 @@
 
 
 
+
+
 ;; 
-(toggle-frame-maximized)
 
 ;; 驴陋脝么脠芦脝脕脧脭脢戮
-;;(toggle-frame-fullscreen 1)
 ;;(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 ;; @purcell
@@ -60,7 +73,7 @@
 (add-to-list 'default-frame-alist'(alpha . (85 . 85)))
 
 ;; fullsreen startup
-(setq initial-frame-alist (quote ((fullscreen , maximized))))
+;;(setq initial-frame-alist (quote ((fullscreen , maximized))))
 
 
 ;; 赂眉赂脛脧脭脢戮脳脰脤氓麓贸脨隆 16pt
@@ -94,8 +107,23 @@
 
 (setq x-underline-at-descent-line t)
 
+(pcase (which-os)
+       ('(mac) 
+        (progn
 
-(setq site-lisp "~/.emacs.d/site-lisp/")
+        (toggle-frame-maximized)
+        (setq site-lisp "~/.emacs.d/site-lisp/")
+         )
+        )
+       ('(win64) 
+         (progn
+
+        (toggle-frame-fullscreen)
+        (setq site-lisp "~/pegasus/site-lisp/")
+          )
+        )
+       )
+
 
 (setq config-path (concat site-lisp "config/"))
 (setq extension-path (concat site-lisp "extension/"))
@@ -162,30 +190,9 @@
   )
 (add-packages-to-load-path "~/.emacs.d/elpa")
 
-(defun create-empty-file-if-no-exists(filePath)
-   "Create a file with FILEPATH parameter."
-   (if (file-exists-p filePath)
-       (message (concat  "File " (concat filePath " already exists")))
-     ;; (with-temp-buffer (write-file filePath)
-    (make-empty-file filePath)
-                       ))
 
 
-(defun compile-Org-to-elisp (file)
-  (let ((tan (concat
-             (file-name-sans-extension file) ".el")
-            ))
-    ;; (create-empty-file-if-no-exists tan)
-    ;;(org-babel-tangle-file file tan "emacs-lisp\\|elisp")
-    (org-babel-tangle-file file tan "emacs-lisp")
-    (byte-compile-file tan)
-    )
-)
 
-;; (byte-compile-file "H:/Work/framework/+Buildin.el")
-;; (org-babel-tangle-file  "H:/Work/framework/+Buildin.org" "H:/Work/framework/+Buildin.el" "emacs-lisp\\|elisp")
-;; (org-babel-tangle-file  "H:/Work/framework/+Buildin.org") 
-;;(compile-Org-to-elisp "H:/Work/framework/+Setting.org")
 (defun filter-path (path filter)
           (mapcar
            (lambda (dir)
@@ -204,7 +211,6 @@
 
 
 
-;;(setq config-path "H:/Work/framework/")
 ;; 配置的加载顺序
 (setq configs '("+OutofMy.org" "+Buildin.org" "+UI.org" "+Utils.org" "+Setting.org" "+Keybinding.org" "+Mode.org"))
 

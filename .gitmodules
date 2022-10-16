@@ -19,3 +19,9 @@
 [submodule "site-lisp/extension/yasnippet"]
 	path = site-lisp/extension/yasnippet
 	url = https://github.com/joaotavora/yasnippet.git
+[submodule "site-lisp/extension/color-rg"]
+	path = site-lisp/extension/color-rg
+	url = https://github.com/manateelazycat/color-rg.git
+[submodule "site-lisp/extension/flymake-posframe"]
+	path = site-lisp/extension/flymake-posframe
+	url = https://github.com/Ladicle/flymake-posframe.git
