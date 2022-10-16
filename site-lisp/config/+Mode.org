@@ -304,6 +304,9 @@
 ;(add-hook 'flymake-mode-hook #'flymake-posframe-mode)
 #+end_src
 ** music
+#+begin_quote
+- 从windows同步过来的文件有^M
+#+end_quote
 #+begin_src emacs-lisp
   (require 'lilypond-mode)
 

@@ -10,3 +10,11 @@
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-h") 'delete-backward-char)
 #+end_src
+* minibuffer C-w 为向前删除一个单词
+#+begin_src emacs-lisp
+  (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
+#+end_src
+- [[https://stackoverflow.com/questions/10046352/how-to-bind-emacs-key-for-delete-whole-word-backword-as-the-same-in-a-shell][How to bind Emacs key for delete whole word backword as the same in a shell?]]
+- [[https://stackoverflow.com/questions/19757612/how-to-redefine-a-key-inside-a-minibuffer-mode-map][How to redefine a key inside a "minibuffer" mode-map?]]
+- [[https://superuser.com/questions/705807/delete-last-word-ctrl-w-make-bash-shell-behave-like-vim-command-line][Delete last word (Ctrl-W): Make bash shell behave like vim command line]]
+
