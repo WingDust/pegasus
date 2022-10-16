@@ -21,4 +21,5 @@
   )
 
 ;;(filter-path "H:/Work/framework/" '("+Setting.org" "+Keybinding.org"))
-(filter-path "~/pegasus/" '("+Setting.org" "+Keybinding.org"))
+;;(filter-path "~/pegasus/" '("+Setting.org" "+Keybinding.org"))
+(filter-path config-path '("+Setting.org" "+Keybinding.org"))

@@ -5,8 +5,40 @@
 (require 'ob-tangle)
 (require 'rx)
 
-(load-file  "./utils/os.el")
-(load-file  "./utils/core.el")
+
+(defun  is-linux ()
+  (interactive)
+  "判断是否是 linux 系统，是返回 '(linux) 否返回 nil"
+  (if (or (eq system-type 'gnu/linux) (eq system-type 'linux))
+      '(linux)
+      )
+	)
+(defun is-win64 ()
+  (interactive)
+  (if (eq system-type 'windows-nt)
+      '(win64)
+      )
+	)
+
+(defun is-mac ()
+  (interactive)
+  (if (eq system-type 'darwin)
+      '(mac)
+      )
+	)
+
+(defun which-os()
+  (interactive)
+  (seq-find
+   (lambda (i) (not (eq nil i)) )
+   (list (is-mac) (is-win64) (is-linux))
+  )
+  )
+
+
+
+;;(load-file  "./utils/os.el")
+;; (load-file  "./utils/core.el")
 
 ;; Profile emacs startup
 (add-hook 'emacs-startup-hook
@@ -127,7 +159,13 @@
 
 (setq config-path (concat site-lisp "config/"))
 (setq extension-path (concat site-lisp "extension/"))
+(setq utils-path (concat extension-path "utils/"))
 
+(add-to-list 'load-path site-lisp)
+(add-to-list 'load-path config-path)
+(add-to-list 'load-path extension-path)
+(add-to-list 'load-path utils-path)
+(require 'core)
 
 (add-to-list 'load-path (concat extension-path  "nano-theme"))
 (add-to-list 'custom-theme-load-path (concat extension-path  "nano-theme"))

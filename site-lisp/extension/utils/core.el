@@ -25,3 +25,4 @@
 ;; (org-babel-tangle-file  "H:/Work/framework/+Buildin.org" "H:/Work/framework/+Buildin.el" "emacs-lisp\\|elisp")
 ;; (org-babel-tangle-file  "H:/Work/framework/+Buildin.org") 
 ;;(compile-Org-to-elisp "H:/Work/framework/+Setting.org")
+(provide 'core)

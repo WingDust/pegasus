@@ -26,3 +26,5 @@
    (list (is-mac) (is-win64) (is-linux))
   )
   )
+
+(provide 'os)
