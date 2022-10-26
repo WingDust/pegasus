@@ -1,4 +1,4 @@
-* ½«Â·¾¶ .org ×ª³É .el ÎÄ¼ş
+* æ›´æ¢ org æ–‡ä»¶åç¼€æˆ el æ–‡ä»¶åç¼€
 #+begin_src emacs-lisp
 (defun org-file-extension-to-elisp-file-extension (file-name)
         (concat
@@ -6,7 +6,7 @@
 )
 ;;(org-file-extension-to-elisp-file-extension "H:/Work/framework/Key.org")
 #+end_src
-* ¶Ô¸ø³öµÄÂ·¾¶¹ıÂË³öÏëÒªµÄÎÄ¼şÂ·¾¶
+* è¿‡æ»¤æ–‡ä»¶
 #+begin_src emacs-lisp
 (defun filter-path (path filter)
           (mapcar
@@ -29,3 +29,15 @@
 (filter-path config-path '("+Setting.org" "+Keybinding.org"))
 
 #+end_src
+* å°† js object è½¬ json å­—ç¬¦
+#+begin_src emacs-lisp
+(defun js2json ()
+  (interactive)
+  (shell-command-on-region (region-beginning)
+                           (region-end)
+                           "node -e 'console.log(JSON.stringify(eval(require(\"fs\").readFileSync(0, \"utf-8\"))))'"
+                           (current-buffer)
+                           t))
+#+end_src
+- [[https://stackoverflow.com/questions/44006287/emacs-command-to-convert-js-object-to-json][Emacs command to convert JS Object to JSON]]
+
