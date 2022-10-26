@@ -253,8 +253,9 @@
 * lsp-bridge
 #+begin_src emacs-lisp
 
-    (require 'lsp-bridge)
-    (global-lsp-bridge-mode)
+  (require 'lsp-bridge)
+  (global-lsp-bridge-mode)
+  (setq lsp-bridge-python-command "python3")
 #+end_src
 
 * tempel

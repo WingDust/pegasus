@@ -169,6 +169,7 @@
 
 (require 'lsp-bridge)
 (global-lsp-bridge-mode)
+(setq lsp-bridge-python-command "python3")
 
 ;;;###autoload
 (require 'tempel)
