@@ -1,3 +1,11 @@
+#+TITLE:  +Mode
+
+#+begin_quote
+- 对于非 Emacs bulid in mode 配置
+#+end_quote
+
+
+
 * lexical
 #+begin_src emacs-lisp
 ;;; -*- lexical-binding: t; -*-
@@ -28,26 +36,27 @@
 #+end_quote
 #+begin_src emacs-lisp
 
-;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-;;
-;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
-;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-;;
-;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
-(setq evil-want-integration t)
-(setq evil-want-keybinding nil)
+  ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+  ;;
+  ;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+  ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+  ;;
+  ;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
 
-;;;###autoload
-(require 'evil)
-(evil-mode)
-;; (setq-default evil-disable-insert-state-bindings t)
-;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
-(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-(define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+  ;;;###autoload
+  (require 'evil)
+  (evil-mode)
+  ;; (setq-default evil-disable-insert-state-bindings t)
+  ;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 
-(define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
+  (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+  (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
-(define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
+  (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 #+end_src
 ** undo-fu
 #+begin_src emacs-lisp

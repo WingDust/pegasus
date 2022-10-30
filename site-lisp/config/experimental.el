@@ -266,3 +266,5 @@ second item in second form, etc."
 ;; 宏是为生成 lisp 表达式，只不过 lisp 解释器会对这个最后生成的 lisp 表达式进行执行返回结果
 (defmacro yymac (a) (list 'list a))
 (yymac '22)
+
+(.

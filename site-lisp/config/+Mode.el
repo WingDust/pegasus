@@ -30,8 +30,9 @@
 ;; (setq-default evil-disable-insert-state-bindings t)
 ;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-(define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 
+(define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
 (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)

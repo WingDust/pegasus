@@ -193,6 +193,32 @@
 
 (require 'nano-theme)
 (load-theme 'nano-dark t)
+
+
+;; https://www.nordtheme.com/
+;; 使用 nord theme 中 Aurora 来做 org mode tite 颜色
+(set-face-foreground 'org-level-4 "#BF616A")
+(set-face-foreground 'org-level-2 "#D08770")
+(set-face-foreground 'org-level-3 "#EBCB8B")
+(set-face-foreground 'org-level-1 "#A3BE8C")
+(set-face-foreground 'org-level-5 "#B48EAD")
+
+;; (Set-face-foreground 'org-level-1 "#8FBCBB")
+;; (set-face-foreground 'org-level-2 "#88C0D0")
+;; (set-face-foreground 'org-level-3 "#81A1C1")
+;; (set-face-foreground 'org-level-4 "#5E81AC")
+;; (Set-face-foreground 'org-level-5 "#B48EAD")
+;; (set-face-foreground 'org-level-1 "#2E3440")
+;; (set-face-foreground 'org-level-2 "#E5E9F0")
+;; (set-face-foreground 'org-level-3 "#ECEFF4")
+;; (set-face-foreground 'org-level-4 "#5E81AC")
+
+;; (Set-face-foreground 'org-level-1 "#8FBCBB")
+;; (set-face-foreground 'org-level-2 "#88C0D0")
+;; (set-face-foreground 'org-level-3 "#81A1C1")
+;; (Set-face-foreground 'org-level-4 "#5E81AC")
+
+;;(setq nano-fonts-use t)
 ;;
 ;;
 
@@ -250,7 +276,7 @@
 
 
 ;; 配置的加载顺序
-(setq configs '("+OutofMy.org" "+Buildin.org" "+UI.org" "+Utils.org" "+Setting.org" "+Keybinding.org" "+Mode.org"))
+(setq configs '("+OutofMy.org" "+Buildin.org" "+UI.org" "+Utils.org" "+Setting.org" "+Keybinding.org" "+Mode.org" "+Org.org"))
 
 
 (defun compile-my-config()

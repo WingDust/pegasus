@@ -1,39 +1,18 @@
-#+TITLE:  +Org
-
-
-* bullet
-
-#+begin_src emacs-lisp
 (require 'org-superstar)
     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
         org-superstar-prettify-item-bullets t )
         (setq org-superstar-item-bullet-alist '((?* . ?•)
                                                 (?+ . ?•)
                                                 (?- . ?•)))
-#+end_src
 
-* Org 列表显示为 dot 字符
-#+begin_src emacs-lisp
 (font-lock-add-keywords 'org-mode
                          '(("^ *\\([-]\\) "
                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-#+end_src
-- [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][list markers]]
 
-* org 显示缩进
-#+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
-#+end_src
-- [[https://stackoverflow.com/questions/36416030/how-to-enable-org-indent-mode-by-default][How to enable org-indent-mode by default?]]
 
-* heading 显示序号
-#+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org-num-mode)
-#+end_src
 
-* Format Org file
-
-#+begin_src emacs-lisp
 (defun nm/add-newline-between-headlines ()
   ""
   (when (equal major-mode 'org-mode)
@@ -52,11 +31,7 @@
    contents and ensure newlines are inserted between headlines"
   (interactive)
   (org-map-entries #'nm/add-newline-between-headlines t 'file))
-#+end_src
-- [[https://github.com/nmartin84/.doom.d][Orgmode Formating]]
-  
-* fold other expecrt current headline
-#+begin_src emacs-lisp
+
 (defun org-show-current-heading-tidily ()
   (interactive)  ;Inteactive
   "Show next entry, keeping other entries closed."
@@ -75,7 +50,3 @@
     (org-show-entry)
     ;;(show-children)))
     (outline-show-children)))
-#+end_src
-- [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline][Emacs org-mode: How can i fold everything but the current headline]]
-
-
