@@ -1,5 +1,9 @@
 #+TITLE:  +Org
 
+*  lexical
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
 
 * bullet
 
@@ -26,9 +30,147 @@
 #+end_src
 - [[https://stackoverflow.com/questions/36416030/how-to-enable-org-indent-mode-by-default][How to enable org-indent-mode by default?]]
 
+*  直接显示 加粗 、 删除线 、 强调
+
+#+begin_src emacs-lisp
+(setq org-hide-emphasis-markers t)
+#+end_src
+
+* 去掉标题的小白点
+
+#+begin_src emacs-lisp
+(setq org-superstar-leading-bullet "  ")
+#+end_src
+
+* 将空行作为 Org Mode 内容一部分，以解决展开标题不会展开空行
+
+#+begin_src emacs-lisp
+(setq org-cycle-separator-lines -1)
+#+end_src
+- [[https://stackoverflow.com/questions/40332479/org-mode-folding-considers-whitespace-as-content][org-mode folding considers whitespace as content]]
+- [[https://emacs.stackexchange.com/questions/21789/org-mode-blank-line-at-the-end-of-tree][Org-mode blank line at the end of tree]]
+- [[https://www.reddit.com/r/emacs/comments/749t8a/keep_a_blank_line_after_a_code_block_in_orgmode/][Keep a blank line after a code block in org-mode]]
+
+* Org mode literate Programming
+** python
+
+#+begin_src emacs-lisp
+;;;'org-babel-execute:python
+;;(setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
+;;        org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
+;;        )
+#+end_src
+
+** js
+
+#+begin_src emacs-lisp
+(require 'ob-js)
+#+end_src
+
+
+** load
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+    (org-babel-do-load-languages
+    'org-babel-load-languages
+    '(  (emacs-lisp . t)
+        (python . t)
+        (js . t)
+;;        (rust . t)
+        (deno . t)
+        ;;(powershell . t)
+    ))
+)
+#+end_src
+
+* Org 列表显示为 dot 字符
+
+#+begin_src emacs-lisp
+ (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+#+end_src
+- [[https://zzamboni.org/post/beautifying-org-mode-in-emacs/][list markers]]
+
+* Tag 右对齐
+
+#+begin_src emacs-lisp
+;; (after! org
+;;   (setq org-tags-column -80)
+;;    ;; ... other org configuration here
+;; )
+;; SPA-u C-c C-c
+#+end_src
+- [[https://emacs-china.org/t/org-mode-tag/8238][org mode TAG 不能右边对齐了]]
+- [[https://emacs.stackexchange.com/questions/56287/org-mode-tag-column-setting-is-ignored][Org mode tag column setting is ignored]]
+
+
+* 折叠字符
+
+#+begin_src emacs-lisp
+(setq org-ellipsis "⤵")
+#+end_src
+
+* bullet
+
+#+begin_src emacs-lisp
+;; (after! org-superstar
+;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
+;;         org-superstar-prettify-item-bullets t )
+;;         (setq org-superstar-item-bullet-alist '((?* . ?•)
+;;                                                 (?+ . ?•)
+;;                                                 (?- . ?•)))
+;;     )
+#+end_src
+
+* 隐藏 heading * 符号
+
+#+begin_quote
+对于这些不在 Elpa 上需要 require 
+#+end_quote
+#+begin_src emacs-lisp
+;;(require 'org-starless)
+;;(add-hook 'org-mode-hook #'org-starless-mode)
+#+end_src
+
+* 对齐 Org mode 的表格
+
+#+begin_src emacs-lisp
+;; (add-hook 'org-mode-hook #'valign-mode)
+;; (add-hook 'markdown-mode-hook #'valign-mode)
+#+end_src
+
 * heading 显示序号
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org-num-mode)
+#+end_src
+
+* 让 Org-refile 能支持移动到文件的 topmost level
+
+#+begin_src emacs-lisp
+
+;; (setq org-refile-targets '((nil :maxlevel . 9)
+;;                            (org-agenda-files :maxlevel . 3)
+;;                            (org-buffer-list :maxlevel . 2)))
+
+(setq
+    org-outline-path-complete-in-steps nil
+    org-refile-allow-creating-parent-nodes 'confirm
+    org-refile-use-outline-path 'file
+    org-refile-targets '((nil :maxlevel . 5)
+                           (org-agenda-files :maxlevel . 4))
+    )
+
+#+end_src
+- [[https://emacs.stackexchange.com/questions/55014/how-do-i-move-a-subtree-to-another-file][(setq org-refile-use-outline-path 'file)]]
+- [[https://emacs.stackexchange.com/questions/36505/org-mode-refile-multiple-locations-with-same-name-as-target][Org mode refile - multiple locations with same name as target]]
+
+* 将 Org mode 中的标记语言渲染的样子临时还原为文本的，以便于修改
+
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook 'org-appear-mode)
+(setq org-appear-autolinks t)
 #+end_src
 
 * Format Org file
@@ -78,4 +220,130 @@
 #+end_src
 - [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline][Emacs org-mode: How can i fold everything but the current headline]]
 
+* line spacing
+#+begin_src emacs-lisp
+;; (add-hook 'org-mode-hook
+;;     (setq line-spacing 0.1)
+;;     (setq header-line-format " ")
+;;     (lambda () (progn
+;;         (setq left-margin-width 2)
+;;         (setq right-margin-width 2)
+;;         (set-window-buffer nil (current-buffer))))
+;;           )
+#+end_src
+* Top padding
+#+begin_src emacs-lisp
+;; (setq header-line-format " ")
+#+end_src
 
+* Side padding
+#+begin_src emacs-lisp
+;; (lambda () (progn
+;;   (setq left-margin-width 2)
+;;   (setq right-margin-width 2)
+;;   (set-window-buffer nil (current-buffer))))
+#+end_src
+
+* Underline line at descent position, not baseline position
+#+begin_src emacs-lisp
+(setq x-underline-at-descent-line t)
+#+end_src
+
+* Org Agenda
+#+begin_src emacs-lisp
+  ;; (setq org-agenda-files (list
+  ;;                         ;;"H:/Work/framework/Site/org/Trivia.org"
+  ;;                         "H:/Work/framework/Site/org/Daily.org"
+  ;;                         ))
+  ;; (after! org
+  ;;         ;; 设置状态序列
+  ;;         ;; 一个 buffer 会有监时的 org-todo-keywords,所以需要重新加载 buffer
+  ;;         (setq org-todo-keywords
+  ;;         '((sequence
+  ;;                 "TODO(t)"
+  ;;                 "IDEA"
+  ;;                 "Destory"
+  ;;                 "INBOX(i)"
+  ;;                 "NEXT(n)"
+  ;;                 "LATER(l)"
+  ;;                 ;; "WAIT/FORWARD(w)"
+  ;;                 ;; "MAYBE/FUTURE(m)"
+  ;;                 "Fancy"
+  ;;                 "|"
+  ;;                 "CANCEL(c)"
+  ;;                 "DONE(d)" )))
+  ;; 
+  ;;         ;; set color for keywords
+  ;;         (setq org-todo-keyword-faces
+  ;;         '(
+  ;;                 ("IDEA" . (:foreground "azure" :weight bold))
+  ;;                 ("Destory" . (:foreground "LightPink"))
+  ;;                 ("INBOX" . (:foreground "#677691" :weight bold))
+  ;;                 ("NEXT"  .  org-warning)
+  ;;                 ("LATER" . "#3B4252")
+  ;;                 ;; ("WAIT/FORWARD" . "blue")
+  ;;                 ;; ("MAYBE/FUTURE" . "purple")
+  ;;                 ("DONE" . "#81A1C1")
+  ;;                 ("CANCEL" ."grey")
+  ;;                 ("Fancy" . "#D08770")
+  ;;                 )
+  ;;         )
+  ;;                 )
+
+#+end_src
+
+* Org priorities 
+#+begin_src emacs-lisp
+  ;; (after! org-fancy-priorities
+  ;;   (setq
+  ;;    org-startup-folded 'content
+  ;;    org-priority-highest '?A
+  ;;    org-priority-lowest  '?D
+  ;;    org-priority-default '?D
+  ;;    org-priority-start-cycle-with-default t
+  ;;    org-priority-faces '((?A :foreground "#F54768")
+  ;;                         (?B :foreground "#F5C747")
+  ;;                         (?C :foreground "#62A6EB")
+  ;;                         (?D :foreground "#A0A0A0"))
+  ;;    ;; org-fancy-priorities-list '("🅐","🅑","🅒","🅓")));;这个适合亮色主题
+  ;;    org-fancy-priorities-list '("[A]","[B]","[C]","[D]")))
+  ;; 
+  ;; (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
+#+end_src
+- [[https://github.com/hlissner/doom-emacs/issues/4446][org-fancy-priorities not working in org-mode]]
+- [[https://emacs-china.org/t/consult-vertico-corfu-org-mode-org-modern/20125/3][这个一站式解决方案很好，就是有两个缺点，一是对各类主题适配尤其是暗色主题还有待优化，另外就是只支持27+。总体来讲可以替换 org-superstar 和 org-fancy-priorities]]
+
+* Org文件以指定的目录深度打开
+#+begin_src emacs-lisp
+;; 目前只在高版本 org 支持
+#+end_src
+- [[https://emacs-china.org/t/org-startup-show2levels/16499][Org文件以指定的目录深度打开 startup:show2levels]]
+
+* 在离开 Emacs 超过 1 Hour 后显示 org-agenda
+#+begin_src emacs-lisp
+;; (defvar idle-agenda-timer nil)
+
+;; (defun idle-show-agenda()
+;;         (org-agenda nil "n")
+;;   )
+
+;; (defun idle-show-agenda-set-timer()
+;;   ;; (interactive)
+;;    (setq idle-agenda-timer 
+;;        (run-with-idle-timer 3600 t 'idle-show-agenda)
+;;      )
+;;     )
+;; (idle-show-agenda-set-timer)
+;; (defun disable-idle-show-agenda()
+;;   (interactive)
+;;   (when idle-agenda-timer
+;;     (cancel-timer idle-agenda-timer)
+;;     (setq idle-agenda-timer nil)
+;;     )
+;; )
+#+end_src
+* 使用英文日期以避免有麻烦的乱码问题
+#+begin_src emacs-lisp
+(setq system-time-locale "C")
+#+end_src
+- [[https://emacs-china.org/t/topic/4513][org-mode中timestamp格式的设定]]

@@ -23,3 +23,11 @@
 ;;(filter-path "H:/Work/framework/" '("+Setting.org" "+Keybinding.org"))
 ;;(filter-path "~/pegasus/" '("+Setting.org" "+Keybinding.org"))
 (filter-path config-path '("+Setting.org" "+Keybinding.org"))
+
+(defun js2json ()
+  (interactive)
+  (shell-command-on-region (region-beginning)
+                           (region-end)
+                           "node -e 'console.log(JSON.stringify(eval(require(\"fs\").readFileSync(0, \"utf-8\"))))'"
+                           (current-buffer)
+                           t))
