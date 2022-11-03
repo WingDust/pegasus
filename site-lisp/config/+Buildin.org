@@ -21,3 +21,9 @@
 #+begin_src emacs-lisp
 (savehist-mode)
 #+end_src
+* 己安装的包列表
+#+begin_src emacs-lisp
+  ;; 查看变量 package-selected-packages
+#+end_src
+- [[https://emacs.stackexchange.com/questions/35154/how-to-know-which-packages-have-been-installed][How to know which packages have been installed?]]
+

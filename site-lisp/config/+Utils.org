@@ -39,5 +39,9 @@
                            (current-buffer)
                            t))
 #+end_src
+
+#+RESULTS:
+: js2json
+
 - [[https://stackoverflow.com/questions/44006287/emacs-command-to-convert-js-object-to-json][Emacs command to convert JS Object to JSON]]
 
