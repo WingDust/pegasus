@@ -1,11 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
-(require 'org-superstar)
-    (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
-        org-superstar-prettify-item-bullets t )
-        (setq org-superstar-item-bullet-alist '((?* . ?•)
-                                                (?+ . ?•)
-                                                (?- . ?•)))
+;; (require 'org-superstar)
+;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
+;;         org-superstar-prettify-item-bullets t )
+;;         (setq org-superstar-item-bullet-alist '((?* . ?•)
+;;                                                 (?+ . ?•)
+;;                                                 (?- . ?•)))
 
 (font-lock-add-keywords 'org-mode
                          '(("^ *\\([-]\\) "
@@ -24,7 +24,7 @@
 ;;        org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
 ;;        )
 
-(require 'ob-js)
+;; (require 'ob-js)
 
 (with-eval-after-load 'org
     (org-babel-do-load-languages
@@ -33,7 +33,7 @@
         (python . t)
         (js . t)
 ;;        (rust . t)
-        (deno . t)
+        ;; (deno . t)
         ;;(powershell . t)
     ))
 )
@@ -49,14 +49,6 @@
 ;; SPA-u C-c C-c
 
 (setq org-ellipsis "⤵")
-
-;; (after! org-superstar
-;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
-;;         org-superstar-prettify-item-bullets t )
-;;         (setq org-superstar-item-bullet-alist '((?* . ?•)
-;;                                                 (?+ . ?•)
-;;                                                 (?- . ?•)))
-;;     )
 
 ;;(require 'org-starless)
 ;;(add-hook 'org-mode-hook #'org-starless-mode)
@@ -78,8 +70,8 @@
                            (org-agenda-files :maxlevel . 4))
     )
 
-(add-hook 'org-mode-hook 'org-appear-mode)
-(setq org-appear-autolinks t)
+;; (add-hook 'org-mode-hook 'org-appear-mode)
+;; (setq org-appear-autolinks t)
 
 (defun nm/add-newline-between-headlines ()
   ""

@@ -6,12 +6,21 @@
 ;; 上面就是这个原因
 
 (setq package-archives '(
-		     ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-		     ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-		     ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
-		     ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
-		     ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
-		     ))
+                     ;; ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+                     ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+                     ;; ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
+                     ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
+                     ;; ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                     ;; ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                     ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                     ;; ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                     ("melpa-cn" . "http://1.15.88.122/melpa/")
+                     ("gnu-cn"   . "http://1.15.88.122/gnu/")
+                     ("org-cn"   . "http://1.15.88.122/org/")
+                     ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
+                     ("nongnu"   . "http://1.15.88.122/nongnu/")
+                     ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
+                     ))
 (setq package-check-signature nil)
 
 ;; (package-initialize)
@@ -78,3 +87,6 @@
 
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
+
+(setq-default  tab-width 2) ;; 表示一个 tab 4个字符宽
+(setq-default indent-tabs-mode nil) ;; nil 表示将 tab 替换成空格

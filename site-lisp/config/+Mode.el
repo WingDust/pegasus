@@ -1,19 +1,21 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;;###autoload
-    (require 'counsel)
-    ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-    ;;(global-set-key (kbd "M-x") 'counsel-M-x)
-    ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    ;; (global-set-key (kbd "C-s") 'counsel-line)
-    ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
-    (global-set-key "\C-s" 'swiper)
+      (require 'counsel)
+      ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+      ;;(global-set-key (kbd "M-x") 'counsel-M-x)
+      ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+      ;; (global-set-key (kbd "C-s") 'counsel-line)
+      ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
+      (global-set-key "\C-s" 'swiper)
 
-  (defun counsel-home()
-    (interactive)
-    (counsel-fzf nil "~")
-    )
-(setq counsel-fzf-cmd "fd --type f --hidden --follow --exclude .git --color never '%s'")
+    (defun counsel-home()
+      (interactive)
+      (counsel-fzf nil "~")
+      )
+  ;;(setq counsel-fzf-cmd "fd.exe --type f --hidden --follow --exclude .git --color never '%s'")
+  ;; [[https://github.com/ut4k/windows-dotfiles/blob/eda4ed484078ea4309b42634737934167191951c/AppData/Roaming/.emacs#L964][fzfはうまくうごかないのでfdを代用する]]
+(setq counsel-fzf-cmd "fd --path-separator / \"%s\"")
 
 ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
 ;;
@@ -31,6 +33,7 @@
 ;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
 
 (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
 (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
@@ -60,13 +63,22 @@
 
   ;(evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
 
-;;;###autoload
-;;(require 'alda-mode)
-;;(setq alda-binary-location "E:/alda/alda.exe")
+(require 'evil-vimish-fold)
+(global-evil-vimish-fold-mode)
 
 ;;;###autoload
-;;(require 'evil-collection)
-;;(evil-collection-init)
+(require 'alda-mode)
+(pcase (which-os)
+('(win64)
+ (progn
+   (setq alda-binary-location "E:/alda/alda.exe")
+   )
+ )
+)
+
+;;;###autoload
+(require 'evil-collection)
+(evil-collection-init)
 
 ;;;###autoload
 (require 'goto-last-point)
