@@ -6,6 +6,37 @@
 (require 'rx)
 
 
+(defun interruptible-pipe (trueChain nilChain groupName)
+  "取值 执行 赋值"
+    (let* ((isInterrupt) (trueFn))
+        (progn
+            (message (concat "================= " groupName))
+            (cl-labels
+                (
+                    (trueExecuter ()
+                        (setq trueFn (pop trueChain))
+                        (progn 
+                          (when trueFn
+                                (setq isInterrupt (funcall trueFn isInterrupt))
+		                        (message "%S" isInterrupt)
+                                (trueExecuter)
+                                )
+
+                        ;; (if (setq isInterrupt (funcall trueFn isInterrupt))
+                        ;;         (trueExecuter)
+                        ;; )
+                        )
+                    )
+                )
+                (progn
+                        (trueExecuter)
+                )
+            )
+        )
+    )
+)
+
+
 (defun  is-linux ()
   (interactive)
   "判断是否是 linux 系统，是返回 '(linux) 否返回 nil"
@@ -36,9 +67,6 @@
   )
 
 
-
-;;(load-file  "./utils/os.el")
-;; (load-file  "./utils/core.el")
 
 ;; Profile emacs startup
 (add-hook 'emacs-startup-hook
@@ -77,9 +105,7 @@
 
 
 
-;; 
 
-;; 驴陋脝么脠芦脝脕脧脭脢戮
 ;;(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 
 ;; @purcell
@@ -108,7 +134,6 @@
 ;;(setq initial-frame-alist (quote ((fullscreen , maximized))))
 
 
-;; 赂眉赂脛脧脭脢戮脳脰脤氓麓贸脨隆 16pt
 
 ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
 (set-face-attribute 'default nil :height 160)
@@ -130,10 +155,7 @@
 ;; 脜盲脰脙 N 娄芦 N O - Emacs 碌脛 elegant-emacs
 ;; - 掳虏脳掳 [[https://github.com/googlefonts/RobotoMono][googlefonts/RobotoMono]] 脰脨碌脛脳脰脤氓脦脛录镁拢卢脦脪脢脟脠芦虏驴掳虏脳掳脕脣
 ;; - 掳虏脳掳 Fira Code =scoop install FiraCode=
-;; 脜盲脰脙 N 娄芦 N O - Emacs 
-;; - 掳虏脳掳 [[https://github.com/googlefonts/RobotoMono][googlefonts/RobotoMono]] 脰脨碌脛脳脰脤氓脦脛录镁拢卢脦脪脢脟脠芦虏驴掳虏脳掳脕脣
 ;; - 掳虏脳掳 Fira Code =scoop install FiraCode=
-()
 ;;}}} ===========================  End  ============================
 
 
@@ -171,29 +193,13 @@
 (add-to-list 'load-path (concat extension-path  "nano-theme"))
 (add-to-list 'custom-theme-load-path (concat extension-path  "nano-theme"))
 
-;; (require 'nano)
-;; (nano-mode)
 
-
-;; (require 'nano-theme)
-;;(require 'sanity)
-;;(load-theme 'nano t)
-
-
-
-;; (require 'nano-theme-light)
-;; (set-face-attribute 'mode-line nil
-;;                  :height 0.1
-;;                   :box nil)
-;;
-;; (require 'nano-theme)
-;; (require 'nano-modeline)
-;; (nano-modeline-mode)
-;; (setq nano-modeline-position 'bottom)
-
-
-(require 'nano-theme)
-(load-theme 'nano-dark t)
+;; Set default font
+(set-face-attribute 'default nil
+                    :family "Iosevka Fixed Heavy Extended"
+                    :height 120
+                    :weight 'normal
+                    :width 'normal)
 
 
 ;; https://www.nordtheme.com/
@@ -317,13 +323,23 @@
 
 (load-my-config)
 
+;; (print load-path)
+;;(require 'nano-theme)
+(require 'nord-theme)
+(load-theme 'nord t)
+(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
+
+
+(server-start)
+
+
 ;; (window-divider-mode)
 (setq window-divider-default-places t
       window-divider-default-bottom-width 1
       window-divider-default-right-width 1)
 
 ;; (window-divider-mode 1)
-(set-face-foreground 'vertical-border "black")
+;;(set-face-foreground 'vertical-border "black")
 
 (set-fringe-mode 10)
 
