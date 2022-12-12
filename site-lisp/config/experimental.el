@@ -1,9 +1,10 @@
 
 
 
-
+(require 's)
 (require 'org-element)
 (require 'dash)
+(require 'cl-lib)
 
 (org-element-parse-buffer
  (org-element-map
@@ -178,6 +179,92 @@
 (type-of #'-)
 
 (funcall 'which-os)
+
+;;{{{
+(defmacro iter-list (index-var element-var list &rest body)
+  (let ((rest (gensym))
+        (atag (gensym))
+        (btag (gensym)))
+    `(cl-flet ((break () (throw (quote ,atag) nil))
+               (return (x) (throw (quote ,atag) x))
+               (continue () (throw (quote ,btag) nil)))
+       (catch (quote ,atag)
+         (cl-do* ((,index-var 0 (1+ ,index-var))
+                  (,rest ,list (cdr ,rest))
+                  (,element-var (car ,rest) (car ,rest)))
+             ((null ,rest))
+           (catch (quote ,btag)
+             ,@body))))))
+(progn
+  (print 2)
+  (print 1)
+  )
+(princ 2 2 3)
+
+(defun interruptible-pipe (trueChain nilChain groupName)
+  "取值 执行 赋值"
+  (let* (
+	;; ;; 真值函数-----------------------------------------------取值
+	;; (trueFn  (pop trueChain))
+	;; ;; 执行器-------------------------------------------------待执行
+	;; (executer (lambda (&optional form) (trueFn form)))
+
+	;; 合并操作--------------------------------------------------执行
+	;; (executer (lambda (&optional form) ((pop trueChain) form)))
+
+	;; 过程值----------------------------------------------------赋值
+	(isInterrupt)
+	)
+   (iter-list trueIndex trueFn  trueChain
+	(setq  isInterrupt (funcall trueFn isInterrupt))
+	(if (not (is-empty isInterrupt))
+	    ;; then
+	    (progn
+
+	      (message "%S" (list trueIndex isInterrupt))
+	      (continue)
+	    )
+	    ;; else
+	    (progn
+	      (iter-list nilIndex nilFn nilChain
+		    (setq  isInterrupt (funcall  nilFn isInterrupt))
+		    (if (not (is-empty  isInterrupt))
+			;; then
+			(progn
+			)
+		            ;; else
+		            (progn
+			)
+
+		    )
+
+            	)
+	    )
+
+
+	)
+
+   )
+  )
+)
+(interruptible-pipe
+        (list
+                '(lambda () (concat "ss")) 
+                '(lambda (x) (print x))
+        )
+        (list
+                '(lambda () (concat "ss"))
+        )
+        "test")
+
+  ;; 有些事还是需要解决的
+  ;; 世界不会教你如何面对巨大苦痛佞 却在历史中找到印证，理应享受幸运
+  ;; 世界是不会教你如何面对巨大苦痛佞 却在历史中找到印证，理应享受幸运
+  ;; 在不看那些歌的情况下被拒绝会是一件好事
+
+;;}}} ==================== End
+
+
 ;;{{{
 
 (defun is-empty(uknown)
@@ -191,15 +278,131 @@
 (is-empty '())
 
 (defun interruptible-pipe (trueChain,nilChain,groupName)
-  (mapc 
-   (lambda (x)
-     (if is-empty(x)
-     (funcall x)
+  (let* (isInterrupt)
+(loop-for-each trueFn trueChain
+  (if (not (is-empty (trueFn  isInterrupt)) )
+    ;; then
+      (progn
+
+	(print isInterrupt)
+	(loop-continue )
+
+	)
+    ;; else
+    (progn
+      (loop-for-each falseFn nilChain
+	(if (not (is-empty (falseFn  isInterrupt)) )
+	    )
+
+       )
      )
-   trueChain
-   )
+
+    )
+ 
+      )
+
+
+  ;; (mapc 
+  ;;  (lambda (x) (if is-empty(x) (funcall x)) trueChain)
 
   )
+  )
+(if '()
+(if nil
+(if (setq a nil)
+(if (cons nil nil)
+(when (and 1 1)
+(message "1")
+(message "2")
+        )
+
+(defun interruptible-pipe (trueChain nilChain groupName)
+  "取值 执行 赋值"
+;; (defun ipipe (trueChain nilChain groupName)
+    (let* ((isInterrupt) (trueFn))
+        (progn
+            (message (concat "================= " groupName))
+            (cl-labels
+                (
+                    (trueExecuter ()
+                        (setq trueFn (pop trueChain))
+                        (progn 
+                          (when trueFn
+                                (setq isInterrupt (funcall trueFn isInterrupt))
+		        (message "%S" isInterrupt)
+
+                                (trueExecuter)
+                                )
+
+                        ;; (if (setq isInterrupt (funcall trueFn isInterrupt))
+                        ;;         (trueExecuter)
+                        ;; )
+                        )
+                    )
+                )
+                (progn
+                        (trueExecuter)
+                )
+            )
+        )
+    )
+)
+        ;; (ipipe
+        (interruptible-pipe
+            (list '(lambda (_) "www") '(lambda (x) (concat x "qqq")) '(lambda (x) (message x)))
+        (list)
+        "t"
+        )
+
+        (setq l    (list '(lambda (_) (concat "www" "")) '(lambda (x) (message x))))
+       (type-of (func-arity (pop l) ))
+  funcall((lambda nil "www") nil)
+(documentation #'pop)
+(documentation #'calcFunc-arg)
+  (let* (
+	;; ;; 真值函数-----------------------------------------------取值
+	;; (trueFn  (pop trueChain))
+	;; ;; 执行器-------------------------------------------------待执行
+	;; (executer (lambda (&optional form) (trueFn form)))
+
+	;; 合并操作--------------------------------------------------执行
+	(executer (lambda (&optional form) ((pop trueChain) form)))
+
+	;; 过程值----------------------------------------------------赋值
+	(isInterrupt)
+	 )
+    (setq isInterrupt (executer))
+
+    )
+  
+
+)
+
+(defmacro pipeline (head &rest tail)
+  (if tail
+      (destructuring-bind ((op &rest args) &rest more) tail
+        `(pipeline (,op ,head ,@args) ,@more))
+      head))
+
+;;(defun pipeline ()
+;;  (let (buffer)
+;;    (do ((k 1 (1+ k))) (nil)
+;;      (let ((j (/ (* (1+ k) k) 2)))
+;;	(if buffer
+;;	    (let* ((i (pop buffer))
+;;		   (r (/ (* i j)
+;;			 (do ((x (max i j) y)
+;;			      (y (min i j) (mod x y)))
+;;			     ((= 0 y) x)))))
+;;	      (dolist
+;;		  (d (do ((x r (floor x 10))
+;;			  (digits nil (cons (mod x 10) digits)))
+;;			 ((= 0 x) digits)))
+;;		(print d)))
+;;	    (push j buffer)))
+;;      (finish-output)
+;;      (sleep 1))))
+;;(pipeline)
 ;;}}}
 
   (defun is-a-fun()
@@ -256,10 +459,16 @@ second item in second form, etc."
   )
 ;; 多个可选参数
 (defun multi-optional(a &optional form)
-  (+ a form)
+  ;; (+ a form)
+  ;; (type-of a)
+  (print
+  ;; (type-of form)
+   form
+   )
   )
 
 (one-optional 2 2)
+(multi-optional 2  )
 
 ;; 一个符号（symbol）不可能既表示一个函数又表示一个宏（macro）
 ;; 符号与 string 的区别
@@ -276,3 +485,373 @@ second item in second form, etc."
 
 
 
+
+;;{{{ 列出
+ (dolist (font (font-family-list)) (insert (format ";; \"%s\"\n" font)))
+;;}}} ==================== End
+
+;;{{{
+	 
+;; Set default font
+(set-face-attribute 'default nil
+                    :family "Iosevka Fixed Heavy Extended"
+                    :height 120
+                    :weight 'normal
+                    :width 'normal)
+;;}}} ==================== End
+
+
+(set-face-foreground 'markdown-header-delimiter-face "#ff6c6b")
+
+(set-face-foreground 'markdown-header-face-1 "#A3BE8C")
+(set-face-foreground 'markdown-header-face-1 "#A3BE8C")
+(set-face-foreground 'markdown-header-face-2 "#D08770")
+(set-face-foreground 'markdown-header-face-3 "#EBCB8B")
+(set-face-foreground 'markdown-header-face-4 "#BF616A")
+(set-face-foreground 'markdown-header-face-5 "#B48EAD")
+
+;;{{{
+(defun a-latex(begin end)
+
+     ;;  \begin{bmatrix}
+     ;;       x \\
+     ;;       y 
+     ;;  \end{bmatrix}
+     ;; 	\rightarrow
+	
+     ;; x\begin{bmatrix}
+     ;;       1 \\
+     ;;       -2 
+     ;;  \end{bmatrix}\
+     ;;  +y\begin{bmatrix}
+     ;;       3 \\
+     ;;       0 
+     ;;  \end{bmatrix}
+	
+     ;;  =\begin{bmatrix}
+     ;;       1x+3y \\
+     ;;       -2x+0y 
+     ;;  \end{bmatrix}
+
+      ;; \begin{bmatrix} x \\ y \end{bmatrix} \rightarrow x\begin{bmatrix} 1 \\ -2 \end{bmatrix}\ +y\begin{bmatrix} 3 \\ 0 \end{bmatrix} =\begin{bmatrix} 1x+3y \\ -2x+0y \end{bmatrix}
+
+  )
+
+;;}}} ==================== End
+
+;;{{{
+
+(custom-set-faces
+
+'(markdown-blockquote-face ((t (:inherit italic :foreground "#83898d" :slant italic))))
+
+;; '(markdown-blockquote-face ((t (:inherit italic :foreground "gray50"))))
+ )
+
+
+(defface markdown-comment-face '(
+				 )
+  )
+(set-face-attribute 'markdown-comment-face nil
+                    :family "Iosevka Fixed Heavy Extended"
+                    :height 120
+                    :weight 'normal
+                    :width 'normal)
+
+(set-face-attribute 'italic :Slant italic)
+
+;;}}} ==================== End
+
+(set-fontset-font t '(#x2ff0 . #x9ffc) (font-spec :family "方正楷体简体" :size 18 :weight 'bold))
+(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
+
+
+原来这个世界上真有人想要你死
+原来这样的状态叫抑郁，还要装成没事人一样，去面对一切
+如果不是这件事，我还不知道那个让我痛苦到不知道究竟发生了什么事的东西，叫恐惧
+我看不了那东西，我害怕止不住想自杀的念头
+脱离世界=>放弃世界=>无感世界=>背弃世界，全啃了一遍
+
+写下来的唯一的好处，就是不会再爱其他人。与无法再爱任何人,恐惧这件事
+只是把杀死我的权利给了你
+
+简单点 痛苦写完了，可以做一些其它事了
+保留一些本质,因为它就是好的,反正狠不下心来
+
+
+
+
+
+
+
+
+
+世界,请别污染我的语境
+
+英格力士
+
+;;{{{
+严肃事对应的是
+
+
+;;}}} ==================== End
+
+红色砖窗层
+;;{{{
+
+(add-hook 'after-save-hook
+	  (lambda nil (progn
+			(message "ss")
+			;; (quarto-mode-markdown-command)
+			(markdown-preview)
+			)
+	  )
+	  )
+;;}}} ==================== End
+
+;;{{{
+
+(defun get-org()
+  "对一个Org 文件中设有"
+  (interactive)
+  (let (foo)
+    (goto-line 1) ;; 到第一行去
+    (save-excursion
+      (while (re-search-forward "SCHEDULED" nil t) ;; 会从光标当前行开始正则匹配 SCHEDULED
+        ;; <2020-11-19 周四 13:04>
+        (setq otitle (org-entry-get (point) "SCHEDULED"))
+        ;; 工作
+        (setq obody (nth 4 (org-heading-components)))
+        ;; TODO keyword
+        (setq okeyword (nth 2 (org-heading-components)))
+        (setq odate (nth 0 (split-string (string-trim otitle "<" ">"))))
+        (setq otime (nth 2 (split-string (string-trim otitle "<" ">"))))
+        (unless (equal (format-time-string "%4Y-%2m-%2d" (current-time)) odate) ;; 只有当它的日期与当前计算机日期在同一天才会发出
+            (error "日期不在这一天")
+            )
+        ;; 分解时间字符串来完成时间加减
+        (setq num1 (string-to-number (nth 0 (split-string otime ":"))))
+        (setq num2 (nth 1 (split-string otime  ":")))
+        ;; send the notification
+        (if (string-equal "00" num2)
+            (if (string-equal "00" (number-to-string num1))
+                (setq otime2 "23:59")
+              (progn
+                (setq num1 (number-to-string (- num1 1)))
+                (setq otime2 (concat num1 ":" "59"))
+                )
+              )
+          (setq otime2 (concat (number-to-string num1) ":"  (number-to-string (- (string-to-number num2) 1))))
+          )
+
+            (run-at-time otime2 nil (lambda ()
+                                      (f-write-text (concat okeyword "\n" obody) 'utf-8
+                                                    "E:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\notify\\Record.txt")
+                                      ))
+
+            (run-at-time otime nil (lambda ()
+                                     ;;(setq alert-id (w32-notification-notify  :title otime :body obody ))
+                                     ;;(when alert-id (w32-notification-close alert-id)))
+                                     (w32-shell-execute "open"  "E:\\spacemacs\\emacs26-3\\.emacs.d\\site-lisp\\notify\\notify.exe")))
+          ))))
+
+
+;;}}} ==================== End
+
+
+
+;;{{{ js indent  parentheses
+;; function(s,e,t){
+;;     R=eval.bind(0,"Array(n).join(' ')");
+;;     for(i=n=0,b=r='';c=t[i++];)
+;;         ~s.indexOf(c)
+;;         ?(r+=b,b='\n'+R(++n)+c+'\n '+R(++n))
+;;         :~e.indexOf(c)
+;;         ?b+='\n'+(
+;;             (n-=2)?R()+' ':''
+;;         )+c+'\n'+
+;;         (n?R()+' ':'')
+;;     :b+=c;
+;;     return r+b;
+;; }
+
+;;}}} ==================== End
+
+(setq a (list '(lambda () (message "ss"))))
+(iter-list i x a
+	   (funcall x)
+
+	   )
+(setq tab-with  2)
+(setq-local tab-with  2)
+(setq indent-line-function 'insert-tab)
+
+        
+
+
+
+
+
+;;{{{ Tail Call Optimization
+(defun ela/sum (numbers)
+  (named-let sum-list ((accu 0)
+                       (lst numbers))
+    (pcase lst
+      (`(,head . ,tail)
+       (sum-list (+ accu head) tail))
+      (_
+       accu))))
+(ela/sum (list 1 2 3))
+        
+;;}}} ==================== End      
+
+
+;;{{{
+        (interruptible-pipe
+        (list )
+        (list )
+        "测试"
+        )
+;;}}} ==================== End
+        lise
+
+;;{{{
+(defun mpv-play-url()
+(interactive)
+(setq a
+(eww-links-at-point))
+;; [[http://ergoemacs.org/emacs/elisp_list.html][Elisp: List]]
+(setq url
+(nth 0 a))
+;; [[http://ergoemacs.org/emacs/elisp_call_shell_command.html][Elisp: Call Shell Command]]
+   ;; (shell-command (concat "mpv " url " --fs"))
+   ;; 这个会实时将命令运行输出打印到一个buffer 中
+   ;; (w32-shell-execute "mpv" (concat  url " --fs"))
+(w32-shell-execute "open" "mpv"
+(concat  url " --fs")
+0)
+)
+;; (message (length a))
+   ;; 打开一个临时buffer
+   ;; (setq xbuff (generate-new-buffer "*my output*"))
+   ;; (with-output-to-temp-buffer xbuff
+   ;;   ()
+
+   ;;   )
+   ;;(message "%S" a)
+ 
+	
+;;}}} ==================== End
+
+
+(s-replace "\[(.*)\]" "22" "[Replace CRLF using powershell](https://stackoverflow.com/questions/19127741/replace-crlf-using-powershell)" )
+(replace-string "\[(.*)\]" "222" "[Replace CRLF using powershell](https://stackoverflow.com/questions/19127741/replace-crlf-using-powershell)")
+(replace-regexp-in-string "\\[\\(.*\\)\\](\\(h.*\\))" "[[\\2][\\1]]" "[Repllace CRLF using powershell](https)")
+			  nil 'literal)
+
+(replace-regexp-in-string "\(hello)\(world\)" "\\2\\1" "helloworld")0
+
+(defun r-s (w with in)
+  (replace-regexp-in-string (regexp-quote w) with in nil 'literal))
+(r-s "." "w" "[wd[()" )
+
+(defun select-current-line ()
+    "Select the current line"
+    (interactive)
+    (let ((pos (line-beginning-position)))
+      (end-of-line)
+      (set-mark pos)))
+(select-current)
+
+(defun r-m()
+  (interactive)
+  (progn
+    (select-current-line)
+
+    (let* (
+	    (point-start (region-beginning))
+	    (point-end (region-end))
+
+	    )
+
+  (interruptible-pipe (list 
+			
+		'(lambda (_) (narrow-to-region point-start point-end))
+		'(lambda (_) (buffer-string))
+		;; (replace-string-in-region)
+		'(lambda (_) (replace-regexp-in-string  "\\[\\(.*\\)\\](\\(h.*\\))" "[[\\2][\\1]]" _))
+
+		'(lambda (_) (progn (kill-region point-start point-end) _))
+
+		;; '(lambda (_) (concat "\n" _))
+		'(lambda (_) (insert _))
+		;; '(lambda (_) (get-mark-content (current-buffer)))
+		;; '(lambda (_) (message "%S" _))
+
+
+			) '() "markdown")
+	)
+    ) 
+    
+  )
+
+(funcall 'buffer-string)
+(buffer-string)
+(defun aaa(begin end)
+  (interactive "r")
+  (message "%S" begin end) 
+
+;; (buffer-string)
+  ) 
+;; 小程序的: div 换为 view
+;;  replace-string div 换为 view => (sgml-pretty-print BEG END) 格式化
+(defun replace-div->view ()
+  (interactive)
+  (let* ((bein-p
+          (region-beginning))
+         (end-p
+          (region-end))
+         (new-stri
+          (->>
+           (get-mark-content (current-buffer))
+           (replace-regexp-in-string
+            "div" "view")
+           (replace-regexp-in-string
+            "class=\"[A-Za-z| |0-9|-]+\""
+            (lambda (s)
+	      (message "%S" s )
+              ;; (save-match-data
+              ;;   (print (concat "替换class: " s))
+              ;;   (concat "style=\""
+              ;;           (call-clj-get-class-names-styles
+              ;;            (replace-regexp-in-string
+              ;;             "class=" ""
+              ;;             (replace-regexp-in-string "\"" "" s)))
+              ;;           "\""))
+	      )))))
+    ;; (progn
+    ;;   ;; 1.替换为view的标签名字
+    ;;   (kill-region bein-p end-p)
+    ;;   (insert new-stri)
+    ;;   ;; 2.格式化
+    ;;   (sgml-pretty-print bein-p (point)))
+    ))
+
+(global-set-key (kbd "C-0") #'get-mark-content)
+
+(get-mark-content)
+(setq cc "asd")
+;;{{{ 获取当前的选中
+;; (defun get-mark-content ()
+(defun get-mark-content (buffername)
+  ;; (interactive)
+  (with-current-buffer
+      buffername
+      ;; (current-buffer)
+       
+    (setq cc (buffer-substring-no-properties
+     (region-beginning)
+     (region-end)))))
+
+
+;;}}} ==================== End

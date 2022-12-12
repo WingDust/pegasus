@@ -8,12 +8,12 @@
 * bullet
 
 #+begin_src emacs-lisp
-(require 'org-superstar)
-    (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
-        org-superstar-prettify-item-bullets t )
-        (setq org-superstar-item-bullet-alist '((?* . ?•)
-                                                (?+ . ?•)
-                                                (?- . ?•)))
+;; (require 'org-superstar)
+;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
+;;         org-superstar-prettify-item-bullets t )
+;;         (setq org-superstar-item-bullet-alist '((?* . ?•)
+;;                                                 (?+ . ?•)
+;;                                                 (?- . ?•)))
 #+end_src
 
 * Org 列表显示为 dot 字符
@@ -64,7 +64,7 @@
 ** js
 
 #+begin_src emacs-lisp
-(require 'ob-js)
+;; (require 'ob-js)
 #+end_src
 
 
@@ -78,7 +78,7 @@
         (python . t)
         (js . t)
 ;;        (rust . t)
-        (deno . t)
+        ;; (deno . t)
         ;;(powershell . t)
     ))
 )
@@ -112,17 +112,6 @@
 (setq org-ellipsis "⤵")
 #+end_src
 
-* bullet
-
-#+begin_src emacs-lisp
-;; (after! org-superstar
-;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
-;;         org-superstar-prettify-item-bullets t )
-;;         (setq org-superstar-item-bullet-alist '((?* . ?•)
-;;                                                 (?+ . ?•)
-;;                                                 (?- . ?•)))
-;;     )
-#+end_src
 
 * 隐藏 heading * 符号
 
@@ -169,8 +158,8 @@
 * 将 Org mode 中的标记语言渲染的样子临时还原为文本的，以便于修改
 
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-appear-mode)
-(setq org-appear-autolinks t)
+;; (add-hook 'org-mode-hook 'org-appear-mode)
+;; (setq org-appear-autolinks t)
 #+end_src
 
 * Format Org file

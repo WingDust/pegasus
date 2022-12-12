@@ -7,3 +7,5 @@
 (recentf-mode)
 
 (savehist-mode)
+
+;; 查看变量 package-selected-packages
