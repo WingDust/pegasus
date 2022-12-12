@@ -268,3 +268,11 @@ second item in second form, etc."
 (yymac '22)
 
 (.
+
+(set-fontset-font t '(#x2ff0 . #x9ffc) (font-spec :family "Kaiti SC" :size 18 :weight 'bold))
+
+
+
+
+
+
