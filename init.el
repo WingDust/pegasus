@@ -6,6 +6,11 @@
 (require 'rx)
 
 
+;;{{{ bug fix
+(setq native-comp-deferred-compilation-deny-list '("markdown-mode\\.el$"))
+;;}}} ==================== End
+
+
 (defun interruptible-pipe (trueChain nilChain groupName)
   "取值 执行 赋值"
     (let* ((isInterrupt) (trueFn))
@@ -338,7 +343,11 @@
       window-divider-default-bottom-width 1
       window-divider-default-right-width 1)
 
-;; (window-divider-mode 1)
+(window-divider-mode 1)
+;; 将 window-divider-mode 的 face 与 vertical-border face 同色
+(set-face-foreground 'window-divider "#434C5E")
+
+;; 现在的分割线的 face [[https://emacs-china.org/t/fringe-face/20143][fringe的这个face，对应上面那部分是什么啊？]]
 ;;(set-face-foreground 'vertical-border "black")
 
 (set-fringe-mode 10)
