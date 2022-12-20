@@ -52,13 +52,25 @@
 - [[https://www.reddit.com/r/emacs/comments/749t8a/keep_a_blank_line_after_a_code_block_in_orgmode/][Keep a blank line after a code block in org-mode]]
 
 * Org mode literate Programming
+
 ** python
 
 #+begin_src emacs-lisp
-;;;'org-babel-execute:python
-;;(setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
-;;        org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
-;;        )
+
+  (pcase (which-os)
+    ('(win64)
+     (progn
+       (setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
+             org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
+             )
+       )
+     )
+    )
+
+  ;;;'org-babel-execute:python
+  ;;(setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
+  ;;        org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
+  ;;        )
 #+end_src
 
 ** js
@@ -83,6 +95,8 @@
     ))
 )
 #+end_src
+
+
 
 * Org 列表显示为 dot 字符
 
@@ -109,9 +123,10 @@
 * 折叠字符
 
 #+begin_src emacs-lisp
-(setq org-ellipsis "⤵")
+;;(setq org-ellipsis "⤵")
+;;(setq org-ellipsis "…")
+(setq org-ellipsis nil)
 #+end_src
-
 
 * 隐藏 heading * 符号
 
@@ -158,8 +173,9 @@
 * 将 Org mode 中的标记语言渲染的样子临时还原为文本的，以便于修改
 
 #+begin_src emacs-lisp
-;; (add-hook 'org-mode-hook 'org-appear-mode)
-;; (setq org-appear-autolinks t)
+(require 'org-appear) 
+(add-hook 'org-mode-hook 'org-appear-mode)
+(setq org-appear-autolinks t)
 #+end_src
 
 * Format Org file
@@ -220,6 +236,7 @@
 ;;         (set-window-buffer nil (current-buffer))))
 ;;           )
 #+end_src
+
 * Top padding
 #+begin_src emacs-lisp
 ;; (setq header-line-format " ")
@@ -240,43 +257,50 @@
 
 * Org Agenda
 #+begin_src emacs-lisp
-  ;; (setq org-agenda-files (list
-  ;;                         ;;"H:/Work/framework/Site/org/Trivia.org"
-  ;;                         "H:/Work/framework/Site/org/Daily.org"
-  ;;                         ))
+  (pcase (which-os)
+      ('(win64)
+       (progn
+
+  (setq org-agenda-files (list
+                          ;;"H:/Work/framework/Site/org/Trivia.org"
+                          "H:/Work/framework/Site/org/Daily.org"
+                          ))
+         )
+       )
+      )
   ;; (after! org
-  ;;         ;; 设置状态序列
-  ;;         ;; 一个 buffer 会有监时的 org-todo-keywords,所以需要重新加载 buffer
-  ;;         (setq org-todo-keywords
-  ;;         '((sequence
-  ;;                 "TODO(t)"
-  ;;                 "IDEA"
-  ;;                 "Destory"
-  ;;                 "INBOX(i)"
-  ;;                 "NEXT(n)"
-  ;;                 "LATER(l)"
-  ;;                 ;; "WAIT/FORWARD(w)"
-  ;;                 ;; "MAYBE/FUTURE(m)"
-  ;;                 "Fancy"
-  ;;                 "|"
-  ;;                 "CANCEL(c)"
-  ;;                 "DONE(d)" )))
-  ;; 
-  ;;         ;; set color for keywords
-  ;;         (setq org-todo-keyword-faces
-  ;;         '(
-  ;;                 ("IDEA" . (:foreground "azure" :weight bold))
-  ;;                 ("Destory" . (:foreground "LightPink"))
-  ;;                 ("INBOX" . (:foreground "#677691" :weight bold))
-  ;;                 ("NEXT"  .  org-warning)
-  ;;                 ("LATER" . "#3B4252")
-  ;;                 ;; ("WAIT/FORWARD" . "blue")
-  ;;                 ;; ("MAYBE/FUTURE" . "purple")
-  ;;                 ("DONE" . "#81A1C1")
-  ;;                 ("CANCEL" ."grey")
-  ;;                 ("Fancy" . "#D08770")
-  ;;                 )
-  ;;         )
+          ;; 设置状态序列
+          ;; 一个 buffer 会有监时的 org-todo-keywords,所以需要重新加载 buffer
+          (setq org-todo-keywords
+          '((sequence
+                  "TODO(t)"
+                  "IDEA"
+                  "Destory"
+                  "INBOX(i)"
+                  "NEXT(n)"
+                  "LATER(l)"
+                  ;; "WAIT/FORWARD(w)"
+                  ;; "MAYBE/FUTURE(m)"
+                  "Fancy"
+                  "|"
+                  "CANCEL(c)"
+                  "DONE(d)" )))
+
+          ;; set color for keywords
+          (setq org-todo-keyword-faces
+          '(
+                  ("IDEA" . (:foreground "azure" :weight bold))
+                  ("Destory" . (:foreground "LightPink"))
+                  ("INBOX" . (:foreground "#677691" :weight bold))
+                  ("NEXT"  .  org-warning)
+                  ("LATER" . "#3B4252")
+                  ;; ("WAIT/FORWARD" . "blue")
+                  ;; ("MAYBE/FUTURE" . "purple")
+                  ("DONE" . "#81A1C1")
+                  ("CANCEL" ."grey")
+                  ("Fancy" . "#D08770")
+                  )
+          )
   ;;                 )
 
 #+end_src
@@ -297,7 +321,21 @@
   ;;    ;; org-fancy-priorities-list '("🅐","🅑","🅒","🅓")));;这个适合亮色主题
   ;;    org-fancy-priorities-list '("[A]","[B]","[C]","[D]")))
   ;; 
-  ;; (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
+  (require 'org-fancy-priorities)
+
+    (setq
+     org-startup-folded 'content
+     org-priority-highest '?A
+     org-priority-lowest  '?D
+     org-priority-default '?D
+     org-priority-start-cycle-with-default t
+     org-priority-faces '((?A :foreground "#F54768")
+                          (?B :foreground "#F5C747")
+                          (?C :foreground "#62A6EB")
+                          (?D :foreground "#A0A0A0"))
+     ;; org-fancy-priorities-list '("🅐","🅑","🅒","🅓")));;这个适合亮色主题
+     org-fancy-priorities-list '("[A]","[B]","[C]","[D]"))
+  (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
 #+end_src
 - [[https://github.com/hlissner/doom-emacs/issues/4446][org-fancy-priorities not working in org-mode]]
 - [[https://emacs-china.org/t/consult-vertico-corfu-org-mode-org-modern/20125/3][这个一站式解决方案很好，就是有两个缺点，一是对各类主题适配尤其是暗色主题还有待优化，另外就是只支持27+。总体来讲可以替换 org-superstar 和 org-fancy-priorities]]
@@ -331,8 +369,10 @@
 ;;     )
 ;; )
 #+end_src
+
 * 使用英文日期以避免有麻烦的乱码问题
 #+begin_src emacs-lisp
 (setq system-time-locale "C")
 #+end_src
 - [[https://emacs-china.org/t/topic/4513][org-mode中timestamp格式的设定]]
+

@@ -1,4 +1,4 @@
-#+TITLE:  U
+#+TITLE:  UI
 
 
 * buffer 添加边距
@@ -63,4 +63,11 @@
 #+begin_src emacs-lisp
 ;; (set-face-foreground 'vertical-border "#282c34")
 #+end_src
+* nord theme tweak
+- 修改 button 线宽度为 1
+#+begin_src emacs-lisp
+(set-face-attribute 'button nil :box '(:line-width 1 :color "#D8DEE9" :style sunken-button))
+#+end_src
+- [[https://emacs.stackexchange.com/questions/47002/adding-box-around-text-without-changing-the-text-width][Adding box around text without changing the text width]]
+- [[https://emacs.stackexchange.com/questions/71157/why-is-box-on-set-face-attribute-not-getting-the-current-value-from-face-backg][Why is :box on set-face-attribute not getting the current value from (face-background)?]]
 

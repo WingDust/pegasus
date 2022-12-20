@@ -25,3 +25,6 @@
 [submodule "site-lisp/extension/flymake-posframe"]
 	path = site-lisp/extension/flymake-posframe
 	url = https://github.com/Ladicle/flymake-posframe.git
+[submodule "site-lisp/extension/websocket-bridge"]
+	path = site-lisp/extension/websocket-bridge
+	url = https://github.com/ginqi7/websocket-bridge.git

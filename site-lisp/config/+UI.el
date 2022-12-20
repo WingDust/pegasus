@@ -50,3 +50,5 @@
 ;;    #b00000000])
 
 ;; (set-face-foreground 'vertical-border "#282c34")
+
+(set-face-attribute 'button nil :box '(:line-width 1 :color "#D8DEE9" :style sunken-button))

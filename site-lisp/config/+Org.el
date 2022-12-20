@@ -19,6 +19,16 @@
 
 (setq org-cycle-separator-lines -1)
 
+(pcase (which-os)
+  ('(win64)
+   (progn
+     (setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
+           org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
+           )
+     )
+   )
+  )
+
 ;;;'org-babel-execute:python
 ;;(setq python-shell-interpreter "e:\\python\\python3.10.5\\python3.exe"
 ;;        org-babel-python-command "e:\\python\\python3.10.5\\python3.exe"
@@ -48,7 +58,9 @@
 ;; )
 ;; SPA-u C-c C-c
 
-(setq org-ellipsis "⤵")
+;;(setq org-ellipsis "⤵")
+;;(setq org-ellipsis "…")
+(setq org-ellipsis nil)
 
 ;;(require 'org-starless)
 ;;(add-hook 'org-mode-hook #'org-starless-mode)
@@ -70,8 +82,9 @@
                            (org-agenda-files :maxlevel . 4))
     )
 
-;; (add-hook 'org-mode-hook 'org-appear-mode)
-;; (setq org-appear-autolinks t)
+(require 'org-appear) 
+(add-hook 'org-mode-hook 'org-appear-mode)
+(setq org-appear-autolinks t)
 
 (defun nm/add-newline-between-headlines ()
   ""
@@ -129,43 +142,50 @@
 
 (setq x-underline-at-descent-line t)
 
-;; (setq org-agenda-files (list
-;;                         ;;"H:/Work/framework/Site/org/Trivia.org"
-;;                         "H:/Work/framework/Site/org/Daily.org"
-;;                         ))
+(pcase (which-os)
+    ('(win64)
+     (progn
+
+(setq org-agenda-files (list
+                        ;;"H:/Work/framework/Site/org/Trivia.org"
+                        "H:/Work/framework/Site/org/Daily.org"
+                        ))
+       )
+     )
+    )
 ;; (after! org
-;;         ;; 设置状态序列
-;;         ;; 一个 buffer 会有监时的 org-todo-keywords,所以需要重新加载 buffer
-;;         (setq org-todo-keywords
-;;         '((sequence
-;;                 "TODO(t)"
-;;                 "IDEA"
-;;                 "Destory"
-;;                 "INBOX(i)"
-;;                 "NEXT(n)"
-;;                 "LATER(l)"
-;;                 ;; "WAIT/FORWARD(w)"
-;;                 ;; "MAYBE/FUTURE(m)"
-;;                 "Fancy"
-;;                 "|"
-;;                 "CANCEL(c)"
-;;                 "DONE(d)" )))
-;; 
-;;         ;; set color for keywords
-;;         (setq org-todo-keyword-faces
-;;         '(
-;;                 ("IDEA" . (:foreground "azure" :weight bold))
-;;                 ("Destory" . (:foreground "LightPink"))
-;;                 ("INBOX" . (:foreground "#677691" :weight bold))
-;;                 ("NEXT"  .  org-warning)
-;;                 ("LATER" . "#3B4252")
-;;                 ;; ("WAIT/FORWARD" . "blue")
-;;                 ;; ("MAYBE/FUTURE" . "purple")
-;;                 ("DONE" . "#81A1C1")
-;;                 ("CANCEL" ."grey")
-;;                 ("Fancy" . "#D08770")
-;;                 )
-;;         )
+        ;; 设置状态序列
+        ;; 一个 buffer 会有监时的 org-todo-keywords,所以需要重新加载 buffer
+        (setq org-todo-keywords
+        '((sequence
+                "TODO(t)"
+                "IDEA"
+                "Destory"
+                "INBOX(i)"
+                "NEXT(n)"
+                "LATER(l)"
+                ;; "WAIT/FORWARD(w)"
+                ;; "MAYBE/FUTURE(m)"
+                "Fancy"
+                "|"
+                "CANCEL(c)"
+                "DONE(d)" )))
+
+        ;; set color for keywords
+        (setq org-todo-keyword-faces
+        '(
+                ("IDEA" . (:foreground "azure" :weight bold))
+                ("Destory" . (:foreground "LightPink"))
+                ("INBOX" . (:foreground "#677691" :weight bold))
+                ("NEXT"  .  org-warning)
+                ("LATER" . "#3B4252")
+                ;; ("WAIT/FORWARD" . "blue")
+                ;; ("MAYBE/FUTURE" . "purple")
+                ("DONE" . "#81A1C1")
+                ("CANCEL" ."grey")
+                ("Fancy" . "#D08770")
+                )
+        )
 ;;                 )
 
 ;; (after! org-fancy-priorities
@@ -182,7 +202,21 @@
 ;;    ;; org-fancy-priorities-list '("🅐","🅑","🅒","🅓")));;这个适合亮色主题
 ;;    org-fancy-priorities-list '("[A]","[B]","[C]","[D]")))
 ;; 
-;; (add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
+(require 'org-fancy-priorities)
+
+  (setq
+   org-startup-folded 'content
+   org-priority-highest '?A
+   org-priority-lowest  '?D
+   org-priority-default '?D
+   org-priority-start-cycle-with-default t
+   org-priority-faces '((?A :foreground "#F54768")
+                        (?B :foreground "#F5C747")
+                        (?C :foreground "#62A6EB")
+                        (?D :foreground "#A0A0A0"))
+   ;; org-fancy-priorities-list '("🅐","🅑","🅒","🅓")));;这个适合亮色主题
+   org-fancy-priorities-list '("[A]","[B]","[C]","[D]"))
+(add-hook 'org-agenda-mode-hook 'org-fancy-priorities-mode)
 
 ;; 目前只在高版本 org 支持
 
