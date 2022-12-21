@@ -35,8 +35,11 @@
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
 
-(define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
-(define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+
+;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 
@@ -188,6 +191,27 @@
 (require 'tempel)
 (setq tempel-path (concat config-path "templates"))
 
+(require 'imenu-list)
+
+  (setq markdown-imenu-generic-expression
+        '(("title"  "^\\(.*\\)[\n]=+$" 1)
+          ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+          ("h1"   "^# \\(.*\\)$" 1)
+          ("h2"   "^## \\(.*\\)$" 1)
+          ("h3"   "^### \\(.*\\)$" 1)
+          ("h4"   "^#### \\(.*\\)$" 1)
+          ("h5"   "^##### \\(.*\\)$" 1)
+          ("h6"   "^###### \\(.*\\)$" 1)
+          ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+    (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
+
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (setq imenu-generic-expression markdown-imenu-generic-expression)))
+    (setq imenu-auto-rescan t)
+
+(require 'helpful)
+
 ;;;###autoload
 (require 'polymode)
 
@@ -217,6 +241,13 @@
 (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
+(require 'cnfonts)
+;; 让 cnfonts 在 Emacs 启动时自动生效。
+(cnfonts-mode 1)
+;; 添加两个字号增大缩小的快捷键
+(define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+(define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
+
 (require 'org-element)
 
   (defun p(file) 
@@ -228,7 +259,7 @@
   ;;(org-element-parse-buffer)
 
      (org-element-map (org-element-parse-buffer) 'headline
-       (lambda (x)
+ (lambda (x)
 	 (org-element-property :raw-value x)
 	 ;;(princ (org-element-property :raw-value x))
 	 ;;(terpri )

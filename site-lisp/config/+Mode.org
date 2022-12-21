@@ -10,6 +10,7 @@
 #+begin_src emacs-lisp
 ;;; -*- lexical-binding: t; -*-
 #+end_src
+
 * counsel
 #+begin_src emacs-lisp
         ;;;###autoload
@@ -56,11 +57,15 @@
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
 
-  (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
-  (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
+  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+  (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+
+  ;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+  ;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
   (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 #+end_src
+
 ** undo-fu
 #+begin_src emacs-lisp
 ;;;###autoload
@@ -80,6 +85,7 @@
 
 (evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
 #+end_src
+
 ** evil-nerd-commenter
 
 #+begin_src emacs-lisp
@@ -92,6 +98,7 @@
 
   ;(evil-define-key 'normal 'global (kbd "<tab>")  'evil-jump-item)
 #+end_src
+
 ** evil-vimish-fold
 #+begin_src emacs-lisp
   (require 'evil-vimish-fold)
@@ -127,6 +134,7 @@
 ;;;###autoload
 (require 'goto-last-point)
 #+end_src
+
 * vertico
 #+begin_src emacs-lisp
 ;;;###autoload
@@ -134,6 +142,7 @@
 (vertico-mode)
 
 #+end_src
+
 ** 配置 esc 退出当前 minibuffer
 #+begin_src emacs-lisp
 (define-key vertico-map (kbd "<escape>") 'minibuffer-keyboard-quit)
@@ -154,6 +163,7 @@
 (require 'marginalia)
 (marginalia-mode)
 #+end_src
+
 * corfu
 #+begin_quote
 补全
@@ -166,21 +176,25 @@
 
 (setq tab-always-indent 'complete)
 #+end_src
+
 * all-the-icons
 #+begin_src emacs-lisp
 
 #+end_src
+
 ** corfu icon
 #+begin_src emacs-lisp
 (require 'kind-all-the-icons)
 (add-to-list 'corfu-margin-formatters 
                #'kind-all-the-icons-margin-formatter)
 #+end_src
+
 * svg-lib
 #+begin_src emacs-lisp
 ;;;###autoload
 (require 'svg-lib)
 #+end_src
+
 ** svg-tag-mode
 #+begin_src emacs-lisp
 ;;;###autoload
@@ -189,6 +203,7 @@
 (setq svg-tag-tags
       '((":TODO:" . ((lambda (tag) (svg-tag-make "TODO"))))))
 #+end_src
+
 * awesome-tray-mode
 #+begin_src emacs-lisp
 ;; (global-hide-mode-line-mode 1)
@@ -200,6 +215,7 @@
  awesome-tray-mode-line-active-color "White"
  )
 #+end_src
+
 * tempel 
 #+begin_src emacs-lisp
 ;; (global-hide-mode-line-mode 1)
@@ -208,6 +224,7 @@
 ;;(setq tempel-path (concat config-path "templates"))
 
 #+end_src
+
 * smart-align 
 #+begin_src emacs-lisp
 ;; (global-hide-mode-line-mode 1)
@@ -215,6 +232,7 @@
 (require 'smart-align)
 
 #+end_src
+
 * find-file-in-project
 #+begin_src emacs-lisp
   ;;(ivy-mode 1)
@@ -224,6 +242,7 @@
   ;;(setq ffip-project-root "~/")
 
 #+end_src
+
 * exec-path-from-shell
 #+begin_src emacs-lisp
   ;;;###autoload
@@ -231,6 +250,7 @@
     (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
 #+end_src
+
 * color-rg
 #+begin_src emacs-lisp
   ;;(ivy-mode 1)
@@ -239,6 +259,7 @@
   (require 'color-rg)
 
 #+end_src
+
 * snails
 #+begin_src emacs-lisp
     ;;;###autoload
@@ -256,6 +277,7 @@
     )
 #+end_src
 - https://github.com/WeissP/.emacs.d-obsolete/blob/de441f64defa9fe7e17766890607a55c6051a00a/configs/weiss_keybindings%3Csnails.el
+
 * auto-save
 #+begin_src emacs-lisp
   ;;(ivy-mode 1)
@@ -275,6 +297,7 @@
     (require 'yasnippet)
     (yas-global-mode 1)
 #+end_src
+
 * lsp-bridge
 #+begin_src emacs-lisp
 
@@ -291,6 +314,36 @@
 
 #+end_src
 
+* 结构
+
+** imenu-list
+#+begin_src emacs-lisp
+    (require 'imenu-list)
+
+  (setq markdown-imenu-generic-expression
+        '(("title"  "^\\(.*\\)[\n]=+$" 1)
+          ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+          ("h1"   "^# \\(.*\\)$" 1)
+          ("h2"   "^## \\(.*\\)$" 1)
+          ("h3"   "^### \\(.*\\)$" 1)
+          ("h4"   "^#### \\(.*\\)$" 1)
+          ("h5"   "^##### \\(.*\\)$" 1)
+          ("h6"   "^###### \\(.*\\)$" 1)
+          ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
+    (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
+
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (setq imenu-generic-expression markdown-imenu-generic-expression)))
+    (setq imenu-auto-rescan t)
+#+end_src
+
+* hacking
+ 
+#+begin_src emacs-lisp
+(require 'helpful)
+#+end_src
+
 * polymode
 #+begin_src emacs-lisp
 ;;;###autoload
@@ -305,6 +358,7 @@
 #+end_src
 
 ** Markdown
+
 *** markdown-mode
 #+begin_src emacs-lisp
   (autoload 'markdown-mode "markdown-mode"
@@ -316,7 +370,9 @@
      "Major mode for editing GitHub Flavored Markdown files" t)
   (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 #+end_src
-** SQL
+
+* SQL
+
 ** flymake-sqlfluff
 #+begin_src emacs-lisp
 (require 'flymake-sqlfluff)
@@ -329,7 +385,8 @@
 ;(require 'flymake-posframe)
 ;(add-hook 'flymake-mode-hook #'flymake-posframe-mode)
 #+end_src
-** music
+
+* music
 #+begin_quote
 - 从windows同步过来的文件有^M
 #+end_quote
@@ -340,6 +397,18 @@
 (add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
 (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+#+end_src
+
+* UI
+
+** 字体
+#+begin_src emacs-lisp
+(require 'cnfonts)
+;; 让 cnfonts 在 Emacs 启动时自动生效。
+(cnfonts-mode 1)
+;; 添加两个字号增大缩小的快捷键
+(define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+(define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
 #+end_src
 
 

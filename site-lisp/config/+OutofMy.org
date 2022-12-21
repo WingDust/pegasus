@@ -4,6 +4,6 @@
 * doom
 #+begin_src emacs-lisp
 (add-to-list 'load-path config-path)
-(require '+text)
+;; (require '+text)
 #+end_src
 

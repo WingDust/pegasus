@@ -11,7 +11,7 @@
      declare
      (cl-defun get()
        (declare (indent defun)
-		(-let* ())
+        (-let* ())
        )
 
 (defun tt-plainlist ()
@@ -24,9 +24,9 @@
  (package-install 'evil-collection)
 
  (dolist (package '(evil-collection))
-		  ;;(package-installed-p package)
-		  (package-install package)
-		  )
+          ;;(package-installed-p package)
+          (package-install package)
+          )
 
 (defun tt-print-headings ()
   "print all headings in current buffer (of org mode).
@@ -43,17 +43,17 @@
    (interactive)
    (setq org-ast
     (with-temp-buffer
-	(insert-file-contents file)
-	(org-mode)
-	;;(org-element-parse-buffer)
+    (insert-file-contents file)
+    (org-mode)
+    ;;(org-element-parse-buffer)
 
     (org-element-map (org-element-parse-buffer) 'headline
       (lambda (x)
         (org-element-property :raw-value x)
         ;;(princ (org-element-property :raw-value x))
         ;;(terpri )
-	))
-	)
+    ))
+    )
     )
    ;;(print org-ast)
    )
@@ -76,7 +76,7 @@
 (mapc
  (lambda (x)
    (condition-case err
-	(package-install x)
+    (package-install x)
      (error
       (push x error-package)
       )
@@ -105,7 +105,7 @@
    (condition-case err
 
        (message "sss")
-	;;(package-install 'asdasdasd)
+    ;;(package-install 'asdasdasd)
      (error
      ; "%s" err
       (push  "asdasdasd" error-package )
@@ -143,20 +143,20 @@
   (if (or (eq system-type 'gnu/linux) (eq system-type 'linux))
       '(linux)
       )
-	)
+    )
 (is-linux)
 (defun is-win64 ()
   (if (eq system-type 'windows-nt)
       '(win64)
       )
-	)
+    )
 (is-win64)
 
 (defun is-mac ()
   (if (eq system-type 'darwin)
       '(mac)
       )
-	)
+    )
 (is-mac)
 
 (defun which-os()
@@ -204,45 +204,45 @@
 (defun interruptible-pipe (trueChain nilChain groupName)
   "取值 执行 赋值"
   (let* (
-	;; ;; 真值函数-----------------------------------------------取值
-	;; (trueFn  (pop trueChain))
-	;; ;; 执行器-------------------------------------------------待执行
-	;; (executer (lambda (&optional form) (trueFn form)))
+    ;; ;; 真值函数-----------------------------------------------取值
+    ;; (trueFn  (pop trueChain))
+    ;; ;; 执行器-------------------------------------------------待执行
+    ;; (executer (lambda (&optional form) (trueFn form)))
 
-	;; 合并操作--------------------------------------------------执行
-	;; (executer (lambda (&optional form) ((pop trueChain) form)))
+    ;; 合并操作--------------------------------------------------执行
+    ;; (executer (lambda (&optional form) ((pop trueChain) form)))
 
-	;; 过程值----------------------------------------------------赋值
-	(isInterrupt)
-	)
+    ;; 过程值----------------------------------------------------赋值
+    (isInterrupt)
+    )
    (iter-list trueIndex trueFn  trueChain
-	(setq  isInterrupt (funcall trueFn isInterrupt))
-	(if (not (is-empty isInterrupt))
-	    ;; then
-	    (progn
+    (setq  isInterrupt (funcall trueFn isInterrupt))
+    (if (not (is-empty isInterrupt))
+        ;; then
+        (progn
 
-	      (message "%S" (list trueIndex isInterrupt))
-	      (continue)
-	    )
-	    ;; else
-	    (progn
-	      (iter-list nilIndex nilFn nilChain
-		    (setq  isInterrupt (funcall  nilFn isInterrupt))
-		    (if (not (is-empty  isInterrupt))
-			;; then
-			(progn
-			)
-		            ;; else
-		            (progn
-			)
+          (message "%S" (list trueIndex isInterrupt))
+          (continue)
+        )
+        ;; else
+        (progn
+          (iter-list nilIndex nilFn nilChain
+            (setq  isInterrupt (funcall  nilFn isInterrupt))
+            (if (not (is-empty  isInterrupt))
+            ;; then
+            (progn
+            )
+                    ;; else
+                    (progn
+            )
 
-		    )
+            )
 
-            	)
-	    )
+                )
+        )
 
 
-	)
+    )
 
    )
   )
@@ -284,15 +284,15 @@
     ;; then
       (progn
 
-	(print isInterrupt)
-	(loop-continue )
+    (print isInterrupt)
+    (loop-continue )
 
-	)
+    )
     ;; else
     (progn
       (loop-for-each falseFn nilChain
-	(if (not (is-empty (falseFn  isInterrupt)) )
-	    )
+    (if (not (is-empty (falseFn  isInterrupt)) )
+        )
 
        )
      )
@@ -329,7 +329,7 @@
                         (progn 
                           (when trueFn
                                 (setq isInterrupt (funcall trueFn isInterrupt))
-		        (message "%S" isInterrupt)
+                (message "%S" isInterrupt)
 
                                 (trueExecuter)
                                 )
@@ -360,17 +360,17 @@
 (documentation #'pop)
 (documentation #'calcFunc-arg)
   (let* (
-	;; ;; 真值函数-----------------------------------------------取值
-	;; (trueFn  (pop trueChain))
-	;; ;; 执行器-------------------------------------------------待执行
-	;; (executer (lambda (&optional form) (trueFn form)))
+    ;; ;; 真值函数-----------------------------------------------取值
+    ;; (trueFn  (pop trueChain))
+    ;; ;; 执行器-------------------------------------------------待执行
+    ;; (executer (lambda (&optional form) (trueFn form)))
 
-	;; 合并操作--------------------------------------------------执行
-	(executer (lambda (&optional form) ((pop trueChain) form)))
+    ;; 合并操作--------------------------------------------------执行
+    (executer (lambda (&optional form) ((pop trueChain) form)))
 
-	;; 过程值----------------------------------------------------赋值
-	(isInterrupt)
-	 )
+    ;; 过程值----------------------------------------------------赋值
+    (isInterrupt)
+     )
     (setq isInterrupt (executer))
 
     )
@@ -388,18 +388,18 @@
 ;;  (let (buffer)
 ;;    (do ((k 1 (1+ k))) (nil)
 ;;      (let ((j (/ (* (1+ k) k) 2)))
-;;	(if buffer
-;;	    (let* ((i (pop buffer))
-;;		   (r (/ (* i j)
-;;			 (do ((x (max i j) y)
-;;			      (y (min i j) (mod x y)))
-;;			     ((= 0 y) x)))))
-;;	      (dolist
-;;		  (d (do ((x r (floor x 10))
-;;			  (digits nil (cons (mod x 10) digits)))
-;;			 ((= 0 x) digits)))
-;;		(print d)))
-;;	    (push j buffer)))
+;;    (if buffer
+;;        (let* ((i (pop buffer))
+;;           (r (/ (* i j)
+;;             (do ((x (max i j) y)
+;;                  (y (min i j) (mod x y)))
+;;                 ((= 0 y) x)))))
+;;          (dolist
+;;          (d (do ((x r (floor x 10))
+;;              (digits nil (cons (mod x 10) digits)))
+;;             ((= 0 x) digits)))
+;;        (print d)))
+;;        (push j buffer)))
 ;;      (finish-output)
 ;;      (sleep 1))))
 ;;(pipeline)
@@ -444,7 +444,7 @@ second item in second form, etc."
   (cond
    ((null form) x)
    ((null more) (if (listp form)
-		    ;;整体被 `
+            ;;整体被 `
                     `(,(car form) ,x ,@(cdr form))
                   (list form x)))
    (:else `(-> (-> ,x ,form) ,@more))))
@@ -491,7 +491,7 @@ second item in second form, etc."
 ;;}}} ==================== End
 
 ;;{{{
-	 
+     
 ;; Set default font
 (set-face-attribute 'default nil
                     :family "Iosevka Fixed Heavy Extended"
@@ -517,8 +517,8 @@ second item in second form, etc."
      ;;       x \\
      ;;       y 
      ;;  \end{bmatrix}
-     ;; 	\rightarrow
-	
+     ;;     \rightarrow
+    
      ;; x\begin{bmatrix}
      ;;       1 \\
      ;;       -2 
@@ -527,7 +527,7 @@ second item in second form, etc."
      ;;       3 \\
      ;;       0 
      ;;  \end{bmatrix}
-	
+    
      ;;  =\begin{bmatrix}
      ;;       1x+3y \\
      ;;       -2x+0y 
@@ -550,7 +550,7 @@ second item in second form, etc."
 
 
 (defface markdown-comment-face '(
-				 )
+                 )
   )
 (set-face-attribute 'markdown-comment-face nil
                     :family "Iosevka Fixed Heavy Extended"
@@ -566,17 +566,6 @@ second item in second form, etc."
 (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
 
 
-原来这个世界上真有人想要你死
-原来这样的状态叫抑郁，还要装成没事人一样，去面对一切
-如果不是这件事，我还不知道那个让我痛苦到不知道究竟发生了什么事的东西，叫恐惧
-我看不了那东西，我害怕止不住想自杀的念头
-脱离世界=>放弃世界=>无感世界=>背弃世界，全啃了一遍
-
-写下来的唯一的好处，就是不会再爱其他人。与无法再爱任何人,恐惧这件事
-只是把杀死我的权利给了你
-
-简单点 痛苦写完了，可以做一些其它事了
-保留一些本质,因为它就是好的,反正狠不下心来
 
 
 
@@ -600,13 +589,13 @@ second item in second form, etc."
 ;;{{{
 
 (add-hook 'after-save-hook
-	  (lambda nil (progn
-			(message "ss")
-			;; (quarto-mode-markdown-command)
-			(markdown-preview)
-			)
-	  )
-	  )
+      (lambda nil (progn
+            (message "ss")
+            ;; (quarto-mode-markdown-command)
+            (markdown-preview)
+            )
+      )
+      )
 ;;}}} ==================== End
 
 ;;{{{
@@ -679,9 +668,9 @@ second item in second form, etc."
 
 (setq a (list '(lambda () (message "ss"))))
 (iter-list i x a
-	   (funcall x)
+       (funcall x)
 
-	   )
+       )
 (setq tab-with  2)
 (setq-local tab-with  2)
 (setq indent-line-function 'insert-tab)
@@ -740,14 +729,14 @@ second item in second form, etc."
    ;;   )
    ;;(message "%S" a)
  
-	
+    
 ;;}}} ==================== End
 
 
 (s-replace "\[(.*)\]" "22" "[Replace CRLF using powershell](https://stackoverflow.com/questions/19127741/replace-crlf-using-powershell)" )
 (replace-string "\[(.*)\]" "222" "[Replace CRLF using powershell](https://stackoverflow.com/questions/19127741/replace-crlf-using-powershell)")
 (replace-regexp-in-string "\\[\\(.*\\)\\](\\(h.*\\))" "[[\\2][\\1]]" "[Repllace CRLF using powershell](https)")
-			  nil 'literal)
+              nil 'literal)
 
 (replace-regexp-in-string "\(hello)\(world\)" "\\2\\1" "helloworld")0
 
@@ -769,28 +758,28 @@ second item in second form, etc."
     (select-current-line)
 
     (let* (
-	    (point-start (region-beginning))
-	    (point-end (region-end))
+        (point-start (region-beginning))
+        (point-end (region-end))
 
-	    )
+        )
 
   (interruptible-pipe (list 
-			
-		'(lambda (_) (narrow-to-region point-start point-end))
-		'(lambda (_) (buffer-string))
-		;; (replace-string-in-region)
-		'(lambda (_) (replace-regexp-in-string  "\\[\\(.*\\)\\](\\(h.*\\))" "[[\\2][\\1]]" _))
+            
+        '(lambda (_) (narrow-to-region point-start point-end))
+        '(lambda (_) (buffer-string))
+        ;; (replace-string-in-region)
+        '(lambda (_) (replace-regexp-in-string  "\\[\\(.*\\)\\](\\(h.*\\))" "[[\\2][\\1]]" _))
 
-		'(lambda (_) (progn (kill-region point-start point-end) _))
+        '(lambda (_) (progn (kill-region point-start point-end) _))
 
-		;; '(lambda (_) (concat "\n" _))
-		'(lambda (_) (insert _))
-		;; '(lambda (_) (get-mark-content (current-buffer)))
-		;; '(lambda (_) (message "%S" _))
+        ;; '(lambda (_) (concat "\n" _))
+        '(lambda (_) (insert _))
+        ;; '(lambda (_) (get-mark-content (current-buffer)))
+        ;; '(lambda (_) (message "%S" _))
 
 
-			) '() "markdown")
-	)
+            ) '() "markdown")
+    )
     ) 
     
   )
@@ -819,7 +808,7 @@ second item in second form, etc."
            (replace-regexp-in-string
             "class=\"[A-Za-z| |0-9|-]+\""
             (lambda (s)
-	      (message "%S" s )
+          (message "%S" s )
               ;; (save-match-data
               ;;   (print (concat "替换class: " s))
               ;;   (concat "style=\""
@@ -828,7 +817,7 @@ second item in second form, etc."
               ;;             "class=" ""
               ;;             (replace-regexp-in-string "\"" "" s)))
               ;;           "\""))
-	      )))))
+          )))))
     ;; (progn
     ;;   ;; 1.替换为view的标签名字
     ;;   (kill-region bein-p end-p)
@@ -838,6 +827,7 @@ second item in second form, etc."
     ))
 
 (global-set-key (kbd "C-0") #'get-mark-content)
+
 
 (get-mark-content)
 (setq cc "asd")
@@ -852,6 +842,53 @@ second item in second form, etc."
     (setq cc (buffer-substring-no-properties
      (region-beginning)
      (region-end)))))
+
+
+;;}}} ==================== End
+
+;;{{{
+
+(defmacro after! (package &rest body)
+  "Evaluate BODY after PACKAGE have loaded.
+PACKAGE is a symbol (or list of them) referring to Emacs features (aka
+packages). PACKAGE may use :or/:any and :and/:all operators. The precise format
+is:
+- An unquoted package symbol (the name of a package)
+    (after! helm BODY...)
+- An unquoted, nested list of compound package lists, using any combination of
+  :or/:any and :and/:all
+    (after! (:or package-a package-b ...)  BODY...)
+    (after! (:and package-a package-b ...) BODY...)
+    (after! (:and package-a (:or package-b package-c) ...) BODY...)
+- An unquoted list of package symbols (i.e. BODY is evaluated once both magit
+  and git-gutter have loaded)
+    (after! (magit git-gutter) BODY...)
+  If :or/:any/:and/:all are omitted, :and/:all are implied.
+This emulates `eval-after-load' with a few key differences:
+1. No-ops for package that are disabled by the user (via `package!') or not
+   installed yet.
+2. Supports compound package statements (see :or/:any and :and/:all above).
+Since the contents of these blocks will never by byte-compiled, avoid putting
+things you want byte-compiled in them! Like function/macro definitions."
+  (declare (indent defun) (debug t))
+  (if (symbolp package)
+      (unless (memq package (bound-and-true-p doom-disabled-packages))
+        (list (if (or (not (bound-and-true-p byte-compile-current-file))
+                      (require package nil 'noerror))
+                  #'progn
+                #'with-no-warnings)
+              `(with-eval-after-load ',package ,@body)))
+    (let ((p (car package)))
+      (cond ((memq p '(:or :any))
+             (macroexp-progn
+              (cl-loop for next in (cdr package)
+                       collect `(after! ,next ,@body))))
+            ((memq p '(:and :all))
+             (dolist (next (reverse (cdr package)) (car body))
+               (setq body `((after! ,next ,@body)))))
+            (`(after! (:and ,@package) ,@body))))))
+
+
 
 
 ;;}}} ==================== End
