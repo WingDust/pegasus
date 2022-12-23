@@ -42,6 +42,7 @@
     '(  (emacs-lisp . t)
         (python . t)
         (js . t)
+        (shell . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)

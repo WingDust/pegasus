@@ -39,32 +39,35 @@
 #+end_quote
 #+begin_src emacs-lisp
 
-  ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-  ;;
-  ;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
-  ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
-  ;;
-  ;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
+;;
+;;See https://github.com/emacs-evil/evil-collection/issues/60 for more details.
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
 
-  ;;;###autoload
-  (require 'evil)
-  (evil-mode)
-  ;; (setq-default evil-disable-insert-state-bindings t)
-  ;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
-  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
+;;;###autoload
+(require 'evil)
+(evil-mode)
+;; (setq-default evil-disable-insert-state-bindings t)
+;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
 
-  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
-  (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
 
-  ;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
-  ;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
+;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
+;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
-  (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
+(define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
+(setq evil-auto-indent nil)
 #+end_src
+- [[https://emacs.stackexchange.com/questions/42075/unwanted-indentation-in-org-evil][Unwanted indentation in org + evil]]
+
 
 ** undo-fu
 #+begin_src emacs-lisp

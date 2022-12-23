@@ -42,6 +42,7 @@
 ;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
 
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
+(setq evil-auto-indent nil)
 
 ;;;###autoload
 (require 'undo-fu)
