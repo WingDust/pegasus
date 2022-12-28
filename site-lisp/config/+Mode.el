@@ -43,6 +43,8 @@
 
 (define-key evil-visual-state-map (kbd "v") 'evil-visual-line)
 
+(add-hook 'org-mode-hook '(lambda () (setq evil-auto-indent nil)))
+
 ;;;###autoload
 (require 'undo-fu)
 
@@ -191,6 +193,18 @@
 (require 'tempel)
 (setq tempel-path (concat config-path "templates"))
 
+(require 'avy)
+
+(require 'ob-d2)
+
+  (pcase (which-os)
+    ('(win64)
+     (progn
+(setq ob-d2-cli-path "c:/Program Files/D2/d2.exe")
+       )
+     )
+    )
+
 (require 'imenu-list)
 
   (setq markdown-imenu-generic-expression
@@ -202,6 +216,7 @@
           ("h4"   "^#### \\(.*\\)$" 1)
           ("h5"   "^##### \\(.*\\)$" 1)
           ("h6"   "^###### \\(.*\\)$" 1)
+          ("h7"   "^- \\(.*\\)$" 1)
           ("fn"   "^\\[\\^\\(.*\\)\\]" 1)))
     (add-hook 'markdown-mode-hook 'imenu-add-menubar-index)
 

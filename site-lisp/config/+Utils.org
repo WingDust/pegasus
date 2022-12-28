@@ -42,6 +42,30 @@
 
 #+RESULTS:
 : js2json
-
 - [[https://stackoverflow.com/questions/44006287/emacs-command-to-convert-js-object-to-json][Emacs command to convert JS Object to JSON]]
+
+* 执行 C-x 1 时不关闭 imenu-list buffer
+#+begin_src emacs-lisp
+  (defun delete-other-windows-exclude-imenu-list  ()
+    (interactive)
+  (->> (window-list)
+      (-filter
+      (lambda (win)
+              (and
+                  (not (equal "*Ilist*" (buffer-name (window-buffer win))))
+                  (not (eq  (selected-window)  win))
+
+                  )
+                  )
+       )
+      (-map
+       (lambda (bekill-win)
+         (delete-window bekill-win)
+       )
+       )
+      )
+  )
+
+    (global-set-key (kbd "C-x 1") 'delete-other-windows-exclude-imenu-list)
+#+end_src
 

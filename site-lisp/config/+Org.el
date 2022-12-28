@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(setq org-image-actual-width nil)
+
 ;; (require 'org-superstar)
 ;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
 ;;         org-superstar-prettify-item-bullets t )
@@ -42,6 +44,7 @@
     '(  (emacs-lisp . t)
         (python . t)
         (js . t)
+        (d2 . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)

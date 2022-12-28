@@ -883,3 +883,82 @@ things you want byte-compiled in them! Like function/macro definitions."
 
 
 ;;}}} ==================== End
+
+;;{{{  C-x 1 时不关闭 imenu-list buffer
+
+(buffer-name
+(-filter (lambda (buf)
+           (and
+            (get-buffer-window buf 'visible)
+            (not (equal "*Ilist*"   (buffer-name buf)))
+            (not (equal (buffer-name (current-buffer)) (buffer-name buf)))
+
+            )
+            )
+           ;; (message "%S" (get-buffer-window buf 'visible)))
+           (buffer-list))
+
+(defun delete-other-buffer-exclude-imenu-list  ()
+(->> (buffer-list)
+    (-filter
+    (lambda (buf)
+            (and
+                (get-buffer-window buf 'visible)
+                (not (equal "*Ilist*"   (buffer-name buf)))
+                (not (equal (buffer-name (current-buffer)) (buffer-name buf)))
+
+                )
+                )
+     )
+    (-map
+     (lambda (bekill-buf)
+       (window-buffer bekill-buf)
+     )
+     )
+    )
+  )
+
+(defun delete-other-windows-exclude-imenu-list  ()
+  (interactive)
+(->> (window-list)
+    (-filter
+    (lambda (win)
+            (and
+                (not (equal "*Ilist*" (buffer-name (window-buffer win))))
+                (not (eq  (selected-window)  win))
+
+                )
+                )
+     )
+    (-map
+     (lambda (bekill-buf)
+       (delete-window bekill-buf)
+     )
+     )
+    )
+  )
+(window-list)
+(delete-other-windows-exclude-imenu-list)
+(delete-window )
+
+(global-set-key (kbd "C-x 1") 'delete-other-windows-exclude-imenu-list)
+(global-set-key (kbd "C-x 1") 'delete-other-windows)
+
+
+(and (equal "sc" (buffer-name (current-buffer))) t)
+
+(interruptible-pipe
+ (list
+   (lambda () (buffer-list))
+   (-filter
+    (lambda (buf)
+           (message "%S" (get-buffer-window buf 'visible)))
+                      )
+
+   )
+ (list )
+)
+
+(get-buffer-window)
+(buf (window-buffer))
+;;}}} ==================== End

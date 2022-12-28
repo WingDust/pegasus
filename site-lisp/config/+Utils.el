@@ -31,3 +31,25 @@
                            "node -e 'console.log(JSON.stringify(eval(require(\"fs\").readFileSync(0, \"utf-8\"))))'"
                            (current-buffer)
                            t))
+
+(defun delete-other-windows-exclude-imenu-list  ()
+  (interactive)
+(->> (window-list)
+    (-filter
+    (lambda (win)
+            (and
+                (not (equal "*Ilist*" (buffer-name (window-buffer win))))
+                (not (eq  (selected-window)  win))
+
+                )
+                )
+     )
+    (-map
+     (lambda (bekill-win)
+       (delete-window bekill-win)
+     )
+     )
+    )
+)
+
+  (global-set-key (kbd "C-x 1") 'delete-other-windows-exclude-imenu-list)

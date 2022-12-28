@@ -5,6 +5,15 @@
 ;;; -*- lexical-binding: t; -*-
 #+end_src
 
+* 全局状态
+
+** 是否在 org Mode  中使用真实图片大小
+#+begin_src emacs-lisp
+(setq org-image-actual-width nil)
+#+end_src
+- [[https://stackoverflow.com/questions/11670654/how-to-resize-images-in-org-mode][How to resize images in org-mode]]
+
+
 * bullet
 
 #+begin_src emacs-lisp
@@ -89,6 +98,7 @@
     '(  (emacs-lisp . t)
         (python . t)
         (js . t)
+        (d2 . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)

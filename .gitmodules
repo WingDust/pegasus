@@ -28,3 +28,6 @@
 [submodule "site-lisp/extension/websocket-bridge"]
 	path = site-lisp/extension/websocket-bridge
 	url = https://github.com/ginqi7/websocket-bridge.git
+[submodule "site-lisp/extension/ob-d2"]
+	path = site-lisp/extension/ob-d2
+	url = https://github.com/dmacvicar/ob-d2.git
