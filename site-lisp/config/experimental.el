@@ -476,6 +476,15 @@ second item in second form, etc."
 (defmacro yymac (a) (list 'list a))
 (yymac '22)
 
+(.
+
+(set-fontset-font t '(#x2ff0 . #x9ffc) (font-spec :family "Kaiti SC" :size 18 :weight 'bold))
+
+
+
+
+
+
 
 ;;{{{ 列出
  (dolist (font (font-family-list)) (insert (format ";; \"%s\"\n" font)))

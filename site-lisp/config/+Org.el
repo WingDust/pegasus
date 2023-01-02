@@ -45,6 +45,7 @@
         (python . t)
         (js . t)
         (d2 . t)
+        (shell . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)
