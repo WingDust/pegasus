@@ -22,6 +22,9 @@
         ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
         (global-set-key "\C-s" 'swiper)
 
+;; [[https://ladicle.com/post/config/#ivy][Ivy]]
+(define-key ivy-minibuffer-map (kbd "C-w") 'ivy-backward-kill-word)
+(define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
       (defun counsel-home()
         (interactive)
         (counsel-fzf nil "~")

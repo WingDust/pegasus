@@ -1,21 +1,24 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;;###autoload
-      (require 'counsel)
-      ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-      ;;(global-set-key (kbd "M-x") 'counsel-M-x)
-      ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-      ;; (global-set-key (kbd "C-s") 'counsel-line)
-      ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
-      (global-set-key "\C-s" 'swiper)
+        (require 'counsel)
+        ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+        ;;(global-set-key (kbd "M-x") 'counsel-M-x)
+        ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+        ;; (global-set-key (kbd "C-s") 'counsel-line)
+        ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
+        (global-set-key "\C-s" 'swiper)
 
-    (defun counsel-home()
-      (interactive)
-      (counsel-fzf nil "~")
-      )
-  ;;(setq counsel-fzf-cmd "fd.exe --type f --hidden --follow --exclude .git --color never '%s'")
-  ;; [[https://github.com/ut4k/windows-dotfiles/blob/eda4ed484078ea4309b42634737934167191951c/AppData/Roaming/.emacs#L964][fzfはうまくうごかないのでfdを代用する]]
-(setq counsel-fzf-cmd "fd --path-separator / \"%s\"")
+;; [[https://ladicle.com/post/config/#ivy][Ivy]]
+(define-key ivy-minibuffer-map (kbd "C-w") 'ivy-backward-kill-word)
+(define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-delete-char)
+      (defun counsel-home()
+        (interactive)
+        (counsel-fzf nil "~")
+        )
+    ;;(setq counsel-fzf-cmd "fd.exe --type f --hidden --follow --exclude .git --color never '%s'")
+    ;; [[https://github.com/ut4k/windows-dotfiles/blob/eda4ed484078ea4309b42634737934167191951c/AppData/Roaming/.emacs#L964][fzfはうまくうごかないのでfdを代用する]]
+  (setq counsel-fzf-cmd "fd --path-separator / \"%s\"")
 
 ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
 ;;
