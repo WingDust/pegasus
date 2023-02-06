@@ -971,3 +971,30 @@ things you want byte-compiled in them! Like function/macro definitions."
 (get-buffer-window)
 (buf (window-buffer))
 ;;}}} ==================== End
+
+;;{{{
+
+(defun tray-module-timer-info ()
+  (format "%s" org-timer-mode-line-string)
+  )
+(defface tray-module-timer-face
+'((((background light))
+				  :foreground "#00a400" :bold t)
+				 (t
+				  :foreground "green3" :bold t)
+         )
+"timer face "
+:group 'awesome-tray)
+(add-to-list 'awesome-tray-module-alist '("timer" . (tray-module-timer-info tray-module-timer-face)))
+(add-to-list 'awesome-tray-active-modules "timer")
+
+
+
+(org-timer-set-mode-line "on")
+
+(message "%S" org-timer-default-timer)
+(message "%S" org-timer-mode-line-string)
+
+;;}}} ==================== End
+
+最简版本=> 生成足够范围个数的数字 => 数字 => 字符 => eval

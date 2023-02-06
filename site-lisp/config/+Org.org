@@ -13,6 +13,14 @@
 #+end_src
 - [[https://stackoverflow.com/questions/11670654/how-to-resize-images-in-org-mode][How to resize images in org-mode]]
 
+* org-babel-execute 后自动显示图片
+#+begin_src emacs-lisp
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+#+end_src
+- [[https://emacs.stackexchange.com/questions/30520/org-mode-c-c-c-c-to-display-inline-image][Org mode C-c C-c to display inline image]]
+
+#+RESULTS:
+| org-redisplay-inline-images |
 
 * bullet
 

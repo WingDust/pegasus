@@ -68,19 +68,16 @@
 (add-packages-to-load-path extension-path )
 (add-to-list 'load-path  extension-path )
 #+end_src
-
 * 取消默认 
 #+begin_src emacs-lisp
 (set-scroll-bar-mode nil)
 (tool-bar-mode -1)
 (menu-bar-mode -1)                      ;禁用菜单栏
 #+end_src
-
 * 禁用 mode line
 #+begin_src emacs-lisp
 (setq-default mode-line-format nil)
 #+end_src
-
 * COMMENT 禁用 header line
 #+begin_src emacs-lisp
 (setq-default header-line-format nil)
@@ -134,4 +131,11 @@
 (setq-default indent-tabs-mode nil) ;; nil 表示将 tab 替换成空格
 #+end_src
 - [[https://emacs-china.org/t/emacs/19319][我想了解下, emacs 下的缩进到底是怎么设置的…?]]
+* 显示 Emacs GC 时的消息
+#+begin_src emacs-lisp
+;;(setq garbage-collection-messages t)
+#+end_src
+- [[https://www.reddit.com/r/emacs/comments/bakxfn/emacs_gets_stuck_on_gc/][Emacs gets stuck on GC?]]
+#+RESULTS:
+: t
 
