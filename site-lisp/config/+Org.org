@@ -96,6 +96,25 @@
 ;; (require 'ob-js)
 #+end_src
 
+** lilypond
+
+#+begin_src emacs-lisp
+
+ (require 'ob-lilypond)
+  (pcase (which-os)
+    ('(win64)
+     (progn
+       (setq 
+             org-babel-lilypond-command "C:\\Users\\Administrator\\scoop\\shims\\lilypond.exe
+"
+             )
+       )
+     )
+    )
+#+end_src
+
+#+RESULTS:
+: C:\Users\Administrator\scoop\shims\lilypond.exe
 
 ** load
 
@@ -108,6 +127,7 @@
         (js . t)
         (d2 . t)
         (shell . t)
+        (lilypond . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)
