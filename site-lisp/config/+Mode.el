@@ -53,7 +53,7 @@
 
 ;;(global-undo-tree-mode)
 ;;(evil-set-undo-system 'undo-tree)
-(setq evil-set-undo-system 'undo-fu)
+(evil-set-undo-system 'undo-fu)
 
 ;;;###autoload
 (require 'evil-matchit)

@@ -998,3 +998,72 @@ things you want byte-compiled in them! Like function/macro definitions."
 ;;}}} ==================== End
 
 最简版本=> 生成足够范围个数的数字 => 数字 => 字符 => eval
+
+;;{{{
+
+
+  (setq ob-lilypond-header-args
+        '((:results . "file replace")
+          (:exports . "results")
+          ))
+(require 'ob-lilypond)
+
+(defun org-babel-lilypond-process-basic (body params)
+  "Execute a lilypond block in basic mode."
+  (let* ((out-file (cdr (assq :file params)))
+	 (cmdline (or (cdr (assq :cmdline params))
+		      ""))
+	 (in-file (org-babel-temp-file "lilypond-")))
+
+    (with-temp-file in-file
+      (insert (org-babel-expand-body:generic body params)))
+    (message
+(concat
+      org-babel-lilypond-ly-command
+      " -dbackend=eps "
+      "-dno-gs-load-fonts "
+      "-dinclude-eps-fonts "
+      (or (cdr (assoc (file-name-extension out-file)
+		      '(("pdf" . "--pdf ")
+			("ps" . "--ps ")
+			("svg" . "--svg ")
+			("png" . "--png "))))
+	  "--png ")
+      "--output="
+      (file-name-sans-extension out-file)
+      " "
+      cmdline
+      in-file)
+     )
+    (org-babel-eval
+     (concat
+      org-babel-lilypond-ly-command
+      " -dbackend=eps "
+      "-dno-gs-load-fonts "
+      "-dinclude-eps-fonts "
+      (or (cdr (assoc (file-name-extension out-file)
+		      '(("pdf" . "--pdf ")
+			("ps" . "--ps ")
+			("svg" . "--svg ")
+			("png" . "--png "))))
+	  "--png ")
+      "--output="
+      (file-name-sans-extension out-file)
+      " "
+      cmdline
+      in-file) "")) nil)
+
+
+(defun ba (body params)
+  (concat
+   org-babel-lilypond-ly-command
+    " -dbackend=eps "
+      "-dno-gs-load-fonts "
+      "-dinclude-eps-fonts "
+   
+   )
+
+  (-> )
+  )
+
+;;}}} ==================== End
