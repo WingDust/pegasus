@@ -64,7 +64,7 @@
 
 ;;(global-undo-tree-mode)
 ;;(evil-set-undo-system 'undo-tree)
-(setq evil-set-undo-system 'undo-fu)
+(evil-set-undo-system 'undo-fu)
 
 ;;;###autoload
 (require 'evil-matchit)
@@ -147,6 +147,20 @@
  awesome-tray-active-modules '("mode-name" "location" "buffer-name")
  awesome-tray-mode-line-active-color "White"
  )
+
+(defun tray-module-timer-info ()
+  (format "%s" org-timer-mode-line-string)
+  )
+(defface tray-module-timer-face
+'((((background light))
+				  :foreground "#00a400" :bold t)
+				 (t
+				  :foreground "green3" :bold t)
+         )
+"timer face "
+:group 'awesome-tray)
+(add-to-list 'awesome-tray-module-alist '("timer" . (tray-module-timer-info tray-module-timer-face)))
+(add-to-list 'awesome-tray-active-modules "timer")
 
 ;; (global-hide-mode-line-mode 1)
 ;;;###autoload

@@ -2,6 +2,8 @@
 
 (setq org-image-actual-width nil)
 
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
 ;; (require 'org-superstar)
 ;;     (setq org-superstar-headline-bullets-list '("⬡" "◉" "›" "▷" "○");;◆
 ;;         org-superstar-prettify-item-bullets t )
@@ -38,6 +40,18 @@
 
 ;; (require 'ob-js)
 
+(require 'ob-lilypond)
+  (pcase (which-os)
+    ('(win64)
+     (progn
+       (setq 
+             org-babel-lilypond-command "C:\\Users\\Administrator\\scoop\\shims\\lilypond.exe
+"
+             )
+       )
+     )
+    )
+
 (with-eval-after-load 'org
     (org-babel-do-load-languages
     'org-babel-load-languages
@@ -47,6 +61,7 @@
         (d2 . t)
         (shell . t)
         (sql . t)
+        (lilypond . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)
