@@ -188,6 +188,7 @@
 (setq config-path (concat site-lisp "config/"))
 (setq extension-path (concat site-lisp "extension/"))
 (setq utils-path (concat extension-path "utils/"))
+(setq resourses-path (concat site-lisp "resourses/"))
 
 (add-to-list 'load-path site-lisp)
 (add-to-list 'load-path config-path)

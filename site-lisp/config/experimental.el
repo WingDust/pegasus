@@ -1017,24 +1017,24 @@ things you want byte-compiled in them! Like function/macro definitions."
 
     (with-temp-file in-file
       (insert (org-babel-expand-body:generic body params)))
-    (message
-(concat
-      org-babel-lilypond-ly-command
-      " -dbackend=eps "
-      "-dno-gs-load-fonts "
-      "-dinclude-eps-fonts "
-      (or (cdr (assoc (file-name-extension out-file)
-		      '(("pdf" . "--pdf ")
-			("ps" . "--ps ")
-			("svg" . "--svg ")
-			("png" . "--png "))))
-	  "--png ")
-      "--output="
-      (file-name-sans-extension out-file)
-      " "
-      cmdline
-      in-file)
-     )
+;;     (message
+;; (concat
+;;       org-babel-lilypond-ly-command
+;;       " -dbackend=eps "
+;;       "-dno-gs-load-fonts "
+;;       "-dinclude-eps-fonts "
+;;       (or (cdr (assoc (file-name-extension out-file)
+;; 		      '(("pdf" . "--pdf ")
+;; 			("ps" . "--ps ")
+;; 			("svg" . "--svg ")
+;; 			("png" . "--png "))))
+;; 	  "--png ")
+;;       "--output="
+;;       (file-name-sans-extension out-file)
+;;       " "
+;;       cmdline
+;;       in-file)
+;;      )
     (org-babel-eval
      (concat
       org-babel-lilypond-ly-command
@@ -1051,7 +1051,46 @@ things you want byte-compiled in them! Like function/macro definitions."
       (file-name-sans-extension out-file)
       " "
       cmdline
-      in-file) "")) nil)
+      in-file) "")
+    (message (concat  "java -classpath " resourses-path "MidiPlayer " (file-name-directory buffer-file-name) (concat  (file-name-sans-extension out-file) ".mid")
+                   ))
+
+    (start-process-shell-command "play-mid" "mid"
+                (concat 
+                                  "java"
+                   " -classpath " (s-replace "~" "e:/spacemacs/emacs26-3" resourses-path)
+                   " MidiPlayer " 
+                   (concat (file-name-directory buffer-file-name) (file-name-sans-extension out-file) ".mid")
+                   )
+                   )
+    )
+
+  nil)
+
+    (start-process-shell-command "play-mid" "mid"
+                   (concat
+                   "java"
+                   ;; (concat
+                   ;; " -classpath " resourses-path
+                   " -classpath " (s-replace "~" "e:/spacemacs/emacs26-3" resourses-path)
+                   "  MidiPlayer " 
+                   "c:/Users/Administrator/AppData/Local/nvim/images/chords.mid"
+                    ;; )
+                    )
+                   )
+
+    (start-process "play-mid" "mid"
+                   "java"
+                   ;; (concat
+                   ;; " -classpath " resourses-path
+                   " -classpath " (s-replace "~" "e:/spacemacs/emacs26-3" resourses-path)
+                   "  MidiPlayer " 
+                   "c:/Users/Administrator/AppData/Local/nvim/images/chords.mid"
+                    ;; )
+                   )
+    (get-process "play-mid")
+ 
+    (s-replace "~" "e:/spacemacs/emacs26-3" resourses-path)
 
 
 (defun ba (body params)
