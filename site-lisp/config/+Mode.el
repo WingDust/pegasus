@@ -7,7 +7,18 @@
         ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
         ;; (global-set-key (kbd "C-s") 'counsel-line)
         ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
+    (pcase (which-os)
+    ('(win64)
+     (progn
         (global-set-key "\C-s" 'swiper)
+       )
+     )
+    ('(mac)
+     (progn
+        (global-set-key (kbd "M-s") 'swiper)
+       )
+     )
+    )
 
 ;; [[https://ladicle.com/post/config/#ivy][Ivy]]
 (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-backward-kill-word)

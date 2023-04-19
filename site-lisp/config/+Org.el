@@ -46,6 +46,7 @@
         (js . t)
         (d2 . t)
         (shell . t)
+        (sql . t)
 ;;        (rust . t)
         ;; (deno . t)
         ;;(powershell . t)
