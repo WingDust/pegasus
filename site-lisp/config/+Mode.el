@@ -7,7 +7,18 @@
         ;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
         ;; (global-set-key (kbd "C-s") 'counsel-line)
         ;;(global-set-key (kbd "SPC f r") 'counsel-recentf)
+    (pcase (which-os)
+    ('(win64)
+     (progn
         (global-set-key "\C-s" 'swiper)
+       )
+     )
+    ('(mac)
+     (progn
+        (global-set-key (kbd "M-s") 'swiper)
+       )
+     )
+    )
 
 ;; [[https://ladicle.com/post/config/#ivy][Ivy]]
 (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-backward-kill-word)
@@ -136,6 +147,20 @@
  awesome-tray-active-modules '("mode-name" "location" "buffer-name")
  awesome-tray-mode-line-active-color "White"
  )
+
+(defun tray-module-timer-info ()
+  (format "%s" org-timer-mode-line-string)
+  )
+(defface tray-module-timer-face
+'((((background light))
+				  :foreground "#00a400" :bold t)
+				 (t
+				  :foreground "green3" :bold t)
+         )
+"timer face "
+:group 'awesome-tray)
+(add-to-list 'awesome-tray-module-alist '("timer" . (tray-module-timer-info tray-module-timer-face)))
+(add-to-list 'awesome-tray-active-modules "timer")
 
 ;; (global-hide-mode-line-mode 1)
 ;;;###autoload

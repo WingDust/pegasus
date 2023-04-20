@@ -60,6 +60,7 @@
         (js . t)
         (d2 . t)
         (shell . t)
+        (sql . t)
         (lilypond . t)
 ;;        (rust . t)
         ;; (deno . t)
