@@ -253,6 +253,13 @@
             (setq imenu-generic-expression markdown-imenu-generic-expression)))
     (setq imenu-auto-rescan t)
 
+(require 'dirvish)
+(require 'dirvish-side)
+
+(dirvish-override-dired-mode)
+
+(add-hook 'dirvish-side-follow-mode-hook (lambda () (display-line-numbers-mode -1)))
+
 (require 'helpful)
 
 ;;;###autoload
