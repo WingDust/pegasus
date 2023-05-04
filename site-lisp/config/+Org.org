@@ -110,11 +110,18 @@
              )
        )
      )
+
+    ('(mac)
+     (progn
+       (setq org-babel-lilypond-command "/opt/homebrew/bin/lilypond")
+       (setq org-babel-lilypond-ly-command "/opt/homebrew/bin/lilypond")
+       )
+     )
     )
 #+end_src
 
 #+RESULTS:
-: C:\Users\Administrator\scoop\shims\lilypond.exe
+: /opt/homebrew/bin/lilypond
 
 ** load
 
