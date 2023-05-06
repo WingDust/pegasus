@@ -28,7 +28,8 @@
      )
     ('(mac)
      (progn
-        (global-set-key (kbd "M-s") 'swiper)
+        ;; (global-set-key (kbd "M-s") 'swiper)
+        (global-set-key "\C-s" 'swiper)
        )
      )
     )
