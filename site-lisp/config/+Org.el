@@ -50,6 +50,13 @@
              )
        )
      )
+
+    ('(mac)
+     (progn
+       (setq org-babel-lilypond-command "/opt/homebrew/bin/lilypond")
+       (setq org-babel-lilypond-ly-command "/opt/homebrew/bin/lilypond")
+       )
+     )
     )
 
 (with-eval-after-load 'org
@@ -262,3 +269,5 @@
 ;; )
 
 (setq system-time-locale "C")
+
+(require 'org-id)

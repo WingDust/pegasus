@@ -31,3 +31,6 @@
 [submodule "site-lisp/extension/ob-d2"]
 	path = site-lisp/extension/ob-d2
 	url = https://github.com/dmacvicar/ob-d2.git
+[submodule "site-lisp/extension/org-super-links"]
+	path = site-lisp/extension/org-super-links
+	url = https://github.com/toshism/org-super-links.git

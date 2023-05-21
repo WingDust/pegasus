@@ -14,15 +14,15 @@
                        ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
                        ;; ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
                        ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
-                       ;; ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                       ;; ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                       ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                       ;; ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                       ("melpa-cn" . "http://1.15.88.122/melpa/")
-                       ("gnu-cn"   . "http://1.15.88.122/gnu/")
-                       ("org-cn"   . "http://1.15.88.122/org/")
+                       ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                       ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                       ;; ("melpa-cn" . "http://1.15.88.122/melpa/")
+                       ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")
+                       ;; ("org-cn"   . "http://1.15.88.122/org/")
                        ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
-                       ("nongnu"   . "http://1.15.88.122/nongnu/")
+                       ;; ("nongnu"   . "http://1.15.88.122/nongnu/")
                        ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
                        ))
   (setq package-check-signature nil)
@@ -138,4 +138,26 @@
 - [[https://www.reddit.com/r/emacs/comments/bakxfn/emacs_gets_stuck_on_gc/][Emacs gets stuck on GC?]]
 #+RESULTS:
 : t
+* 全局软换行
+#+begin_src emacs-lisp
+(global-visual-line-mode)
+#+end_src
 
+#+RESULTS:
+: t
+* center minibuffer
+#+begin_src emacs-lisp
+;; (advice-add #'message :filter-args #'message-filter-center)
+
+;; (defun message-filter-center (args)
+;;   "Center message string.
+;; This is a :filter-args advice for `message`."
+;;   (if (car args)
+;;       (with-current-buffer (window-buffer (minibuffer-window))
+;;     (let ((str (apply #'format-message args)))
+;;       (list "%s" (propertize str 'line-prefix (list 'space :align-to (max 0 (/ (- (window-width (minibuffer-window)) (string-width str)) 2)))))))
+;;     args))
+#+end_src
+- [[https://emacs.stackexchange.com/questions/27767/center-text-in-minibuffer-echo-area][Center text in minibuffer/echo area?]]
+
+#+RESULTS:

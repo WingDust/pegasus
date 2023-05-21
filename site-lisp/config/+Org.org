@@ -423,3 +423,10 @@
 #+end_src
 - [[https://emacs-china.org/t/topic/4513][org-mode中timestamp格式的设定]]
 
+
+* reciprocal link 双向链接
+#+begin_src emacs-lisp
+(require 'org-id)
+
+#+end_src
+

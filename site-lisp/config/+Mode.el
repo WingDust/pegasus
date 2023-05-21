@@ -47,6 +47,7 @@
 ;; (defindebuge-key evil-insert-state-map (kbd "C-a") 'evil-beginning-of-line)
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "-") 'dirvish)
 (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
 
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
@@ -291,12 +292,12 @@
 (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
-(require 'cnfonts)
-;; 让 cnfonts 在 Emacs 启动时自动生效。
-(cnfonts-mode 1)
-;; 添加两个字号增大缩小的快捷键
-(define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
-(define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
+;; (require 'cnfonts)
+;; ;; 让 cnfonts 在 Emacs 启动时自动生效。
+;; (cnfonts-mode 1)
+;; ;; 添加两个字号增大缩小的快捷键
+;; (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+;; (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
 
 (require 'org-element)
 

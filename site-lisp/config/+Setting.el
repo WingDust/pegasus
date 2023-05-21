@@ -10,15 +10,15 @@
                      ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
                      ;; ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
                      ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
-                     ;; ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                     ;; ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                     ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                     ;; ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-                     ("melpa-cn" . "http://1.15.88.122/melpa/")
-                     ("gnu-cn"   . "http://1.15.88.122/gnu/")
-                     ("org-cn"   . "http://1.15.88.122/org/")
+                     ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                     ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                     ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                     ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                     ;; ("melpa-cn" . "http://1.15.88.122/melpa/")
+                     ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")
+                     ;; ("org-cn"   . "http://1.15.88.122/org/")
                      ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
-                     ("nongnu"   . "http://1.15.88.122/nongnu/")
+                     ;; ("nongnu"   . "http://1.15.88.122/nongnu/")
                      ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
                      ))
 (setq package-check-signature nil)
@@ -92,3 +92,16 @@
 (setq-default indent-tabs-mode nil) ;; nil 表示将 tab 替换成空格
 
 ;;(setq garbage-collection-messages t)
+
+(global-visual-line-mode)
+
+;; (advice-add #'message :filter-args #'message-filter-center)
+
+;; (defun message-filter-center (args)
+;;   "Center message string.
+;; This is a :filter-args advice for `message`."
+;;   (if (car args)
+;;       (with-current-buffer (window-buffer (minibuffer-window))
+;;     (let ((str (apply #'format-message args)))
+;;       (list "%s" (propertize str 'line-prefix (list 'space :align-to (max 0 (/ (- (window-width (minibuffer-window)) (string-width str)) 2)))))))
+;;     args))

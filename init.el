@@ -333,7 +333,7 @@
 ;;(require 'nano-theme)
 (require 'nord-theme)
 (load-theme 'nord t)
-(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
+(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 18))
 
 
 (server-start)
