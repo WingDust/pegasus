@@ -1107,3 +1107,9 @@ things you want byte-compiled in them! Like function/macro definitions."
   )
 
 ;;}}} ==================== End
+
+(require  'org-super-links)
+
+
+(expand-file-name
+(getenv "DENOTE"))

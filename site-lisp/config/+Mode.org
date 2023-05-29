@@ -483,6 +483,51 @@
 #+end_src
 
 ** center-
+#+begin_src emacs-lisp
+;; A small minor mode to use a big fringe
+;; (defvar bzg-big-fringe-mode nil)
+;; (define-minor-mode bzg-big-fringe-mode
+;;   "Minor mode to use big fringe in the current buffer."
+;;   :init-value nil
+;;   :global t
+;;   :variable bzg-big-fringe-mode
+;;   :group 'editing-basics
+;;   (if (not bzg-big-fringe-mode)
+;;       (set-fringe-style nil)
+;;     (set-fringe-mode
+;;      (/ (- (frame-pixel-width)
+;;            (* 100 (frame-char-width)))
+;;         2))))
+
+;; ;; Now activate this global minor mode
+;; (bzg-big-fringe-mode 1)
+
+;; ;; To activate the fringe by default and deactivate it when windows
+;; ;; are split vertically, uncomment this:
+;;  (add-hook 'window-configuration-change-hook
+;;            (lambda ()
+;;              (if (delq nil
+;;                        (let ((fw (frame-width)))
+;;                          (mapcar (lambda(w) (< (window-width w) (/ fw 2)))
+;;                                  (window-list))))
+;;                  (bzg-big-fringe-mode 0)
+;;                (bzg-big-fringe-mode 1))))
+
+;; ;; Use a minimal cursor
+;; ;; (setq default-cursor-type 'hbar)
+
+;; ;; Get rid of the indicators in the fringe
+;; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+;;         fringe-bitmaps)
+
+(require 'centered-window)
+(centered-window-mode t)
+#+end_src
+- effect minibuffer
+- https://bzg.fr/en/emacs-strip-tease/
+
+#+RESULTS:
+
 
 * util
 

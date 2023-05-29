@@ -12,11 +12,11 @@
   (setq package-archives '(
                        ;; ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
                        ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-                       ;; ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
+                       ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
                        ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
                        ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
                        ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                       ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                       ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
                        ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                        ;; ("melpa-cn" . "http://1.15.88.122/melpa/")
                        ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")
@@ -27,6 +27,9 @@
                        ))
   (setq package-check-signature nil)
 #+end_src
+
+#+RESULTS:
+
 - [[https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure][How to proceed on package.el signature check failure]]
 * 我只下载不加载，所以这一行要被注释掉
 #+begin_src emacs-lisp
