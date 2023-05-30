@@ -564,6 +564,7 @@ second item in second form, etc."
 
 (set-fontset-font t '(#x2ff0 . #x9ffc) (font-spec :family "方正楷体简体" :size 18 :weight 'bold))
 (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
+(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "STKaiti" :size 20))
 
 
 
@@ -1106,3 +1107,9 @@ things you want byte-compiled in them! Like function/macro definitions."
   )
 
 ;;}}} ==================== End
+
+(require  'org-super-links)
+
+
+(expand-file-name
+(getenv "DENOTE"))

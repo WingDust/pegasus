@@ -423,3 +423,19 @@
 #+end_src
 - [[https://emacs-china.org/t/topic/4513][org-mode中timestamp格式的设定]]
 
+
+* reciprocal link 双向链接
+#+begin_src emacs-lisp
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+#+end_src
+
+* denote
+#+begin_src emacs-lisp
+(require 'denote)
+(setq denote-directory (getenv "DENOTE"))
+(setq denote-known-keyword '("knowledge" "denote"))
+(setq denote-file-type nil)
+#+end_src
+
+#+RESULTS:

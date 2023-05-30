@@ -269,3 +269,8 @@
 ;; )
 
 (setq system-time-locale "C")
+
+(require 'org-id)
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+(require 'denote)
