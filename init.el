@@ -202,7 +202,7 @@
 
 ;; Set default font
 (set-face-attribute 'default nil
-                    :family "Iosevka Fixed Heavy Extended"
+                    :family "Sarasa Term SC Nerd"
                     :height 120
                     :weight 'normal
                     :width 'normal)
@@ -333,7 +333,7 @@
 ;;(require 'nano-theme)
 (require 'nord-theme)
 (load-theme 'nord t)
-(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
+;; (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 20))
 
 
 (server-start)
@@ -393,7 +393,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(d2-mode ob-d2 ejc-sql evil-vimish-fold flymake-cursor yasnippet websocket web-server vertico undo-fu tempel svg-tag-mode quarto-mode posframe orderless marginalia flymake-sqlfluff find-file-in-project exec-path-from-shell evil-nerd-commenter evil-matchit dash counsel corfu clear-text annalist all-the-icons))
+   '(denote centered-window writeroom-mode dirvish d2-mode ob-d2 ejc-sql evil-vimish-fold flymake-cursor yasnippet websocket web-server vertico undo-fu tempel svg-tag-mode quarto-mode posframe orderless marginalia flymake-sqlfluff find-file-in-project exec-path-from-shell evil-nerd-commenter evil-matchit dash counsel corfu clear-text annalist all-the-icons))
  '(widget-image-enable nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
