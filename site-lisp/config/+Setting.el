@@ -8,11 +8,11 @@
 (setq package-archives '(
                      ;; ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
                      ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-                     ;; ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
+                     ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
                      ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
                      ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
                      ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                     ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                     ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
                      ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                      ;; ("melpa-cn" . "http://1.15.88.122/melpa/")
                      ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")

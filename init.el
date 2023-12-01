@@ -393,11 +393,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(denote centered-window writeroom-mode dirvish d2-mode ob-d2 ejc-sql evil-vimish-fold flymake-cursor yasnippet websocket web-server vertico undo-fu tempel svg-tag-mode quarto-mode posframe orderless marginalia flymake-sqlfluff find-file-in-project exec-path-from-shell evil-nerd-commenter evil-matchit dash counsel corfu clear-text annalist all-the-icons))
+   '(sweeprolog slime go-mode focus diff-hl vlf denote centered-window writeroom-mode dirvish d2-mode ob-d2 ejc-sql evil-vimish-fold flymake-cursor yasnippet websocket web-server vertico undo-fu tempel svg-tag-mode quarto-mode posframe orderless marginalia flymake-sqlfluff find-file-in-project exec-path-from-shell evil-nerd-commenter evil-matchit dash counsel corfu clear-text annalist all-the-icons))
  '(widget-image-enable nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(fringe ((t (:background "#2E3440")))))
