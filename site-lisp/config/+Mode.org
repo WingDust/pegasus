@@ -11,6 +11,22 @@
 ;;; -*- lexical-binding: t; -*-
 #+end_src
 
+
+* exec-path-from-shell
+#+begin_src emacs-lisp
+  (when (memq window-system '(mac ns x))
+  (setq exec-path-from-shell-variables '("PATH" "MANPATH" "GOROOT" "GOPATH" "EDITOR" "PYTHONPATH" "DENOTE"))
+
+  ;; 设成nil 则不从 .zshrc 读 只从 .zshenv读（可以加快速度，但是需要你将环境变量相关的都放到 .zshenv 中，而非 .zshrc 中）
+  (setq exec-path-from-shell-check-startup-files nil) ;
+  (setq exec-path-from-shell-arguments '("-l" )) ;remove -i read form .zshenv
+  (exec-path-from-shell-initialize)
+  )
+#+end_src
+
+#+RESULTS:
+: ((DENOTE) (PYTHONPATH) (EDITOR) (GOPATH) (GOROOT) (MANPATH . /opt/homebrew/share/man:/usr/share/man:/usr/local/share/man:/opt/homebrew/share/man:) (PATH . /Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/luojiawei/.cargo/bin))
+
 * counsel
 #+begin_src emacs-lisp
         ;;;###autoload
@@ -28,7 +44,8 @@
      )
     ('(mac)
      (progn
-        (global-set-key (kbd "M-s") 'swiper)
+        ;; (global-set-key (kbd "M-s") 'swiper)
+        (global-set-key "\C-s" 'swiper)
        )
      )
     )
@@ -46,6 +63,16 @@
 
 #+end_src
 
+
+* dirvish
+#+begin_src emacs-lisp
+(require 'dirvish)
+(require 'dirvish-side)
+
+(dirvish-override-dired-mode)
+
+(add-hook 'dirvish-side-follow-mode-hook (lambda () (display-line-numbers-mode -1)))
+#+end_src
 
 * evil
 #+begin_quote
@@ -70,9 +97,11 @@
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "-") 'dirvish)
 (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
+(define-key evil-normal-state-map (kbd "D") 'duplicate-line)
 
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
 (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+
 
 ;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
 ;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
@@ -81,6 +110,10 @@
 
 (add-hook 'org-mode-hook '(lambda () (setq evil-auto-indent nil)))
 #+end_src
+
+#+RESULTS:
+| org-appear-mode | org-num-mode | org-indent-mode | (closure ((hook . org-mode-hook) (--dolist-tail--) t) nil (lsp-bridge-mode 1)) | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | (lambda nil (setq evil-auto-indent nil)) | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes |
+
 - [[https://emacs.stackexchange.com/questions/42075/unwanted-indentation-in-org-evil][Unwanted indentation in org + evil]]
 
 ** undo-fu
@@ -297,19 +330,19 @@
 
 * snails
 #+begin_src emacs-lisp
-    ;;;###autoload
-    (require 'snails)
-    (setq snails-show-with-frame nil)
-  (add-hook 'snails-mode-hook
-	    (lambda ()
-	      ;;(evil-insert-state)
-	      (evil-emacs-state)
-	      )
-	    )
-  (with-eval-after-load 'snails
-    (define-key snails-mode-map (kbd "C-n") #'snails-select-next-item)
-    (define-key snails-mode-map (kbd "C-p") #'snails-select-prev-item)
-    )
+  ;;   ;;;###autoload
+  ;;   (require 'snails)
+  ;;   (setq snails-show-with-frame nil)
+  ;; (add-hook 'snails-mode-hook
+	;;     (lambda ()
+	;;       ;;(evil-insert-state)
+	;;       (evil-emacs-state)
+	;;       )
+	;;     )
+  ;; (with-eval-after-load 'snails
+  ;;   (define-key snails-mode-map (kbd "C-n") #'snails-select-next-item)
+  ;;   (define-key snails-mode-map (kbd "C-p") #'snails-select-prev-item)
+  ;;   ;; )
 #+end_src
 - https://github.com/WeissP/.emacs.d-obsolete/blob/de441f64defa9fe7e17766890607a55c6051a00a/configs/weiss_keybindings%3Csnails.el
 
@@ -370,6 +403,16 @@
     )
 
 #+end_src
+* common lisp
+** 
+#+begin_src emacs-lisp
+;;;###autoload
+(require 'slime)
+(slime-setup)
+(slime-setup '(slime-fancy))
+(setq inferior-lisp-program (executable-find "sbcl"))
+  
+#+end_src
 
 * 结构
 
@@ -399,15 +442,6 @@
 #+RESULTS:
 : t
 
-** dirvish
-#+begin_src emacs-lisp
-(require 'dirvish)
-(require 'dirvish-side)
-
-(dirvish-override-dired-mode)
-
-(add-hook 'dirvish-side-follow-mode-hook (lambda () (display-line-numbers-mode -1)))
-#+end_src
 
 * hacking
  
@@ -470,6 +504,12 @@
 ;; (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 #+end_src
 
+* prolog
+
+** sweeprolog
+#+begin_src emacs-lisp
+#+end_src
+
 * UI
 
 ** 字体
@@ -521,6 +561,7 @@
 ;;         fringe-bitmaps)
 
 (require 'centered-window)
+(setq cwm-centered-window-width 210)
 (centered-window-mode t)
 #+end_src
 - effect minibuffer

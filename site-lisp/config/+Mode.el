@@ -1,5 +1,14 @@
 ;;; -*- lexical-binding: t; -*-
 
+(when (memq window-system '(mac ns x))
+(setq exec-path-from-shell-variables '("PATH" "MANPATH" "GOROOT" "GOPATH" "EDITOR" "PYTHONPATH" "DENOTE"))
+
+;; 设成nil 则不从 .zshrc 读 只从 .zshenv读（可以加快速度，但是需要你将环境变量相关的都放到 .zshenv 中，而非 .zshrc 中）
+(setq exec-path-from-shell-check-startup-files nil) ;
+(setq exec-path-from-shell-arguments '("-l" )) ;remove -i read form .zshenv
+(exec-path-from-shell-initialize)
+)
+
 ;;;###autoload
         (require 'counsel)
         ;;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
@@ -15,7 +24,8 @@
      )
     ('(mac)
      (progn
-        (global-set-key (kbd "M-s") 'swiper)
+        ;; (global-set-key (kbd "M-s") 'swiper)
+        (global-set-key "\C-s" 'swiper)
        )
      )
     )
@@ -30,6 +40,13 @@
     ;;(setq counsel-fzf-cmd "fd.exe --type f --hidden --follow --exclude .git --color never '%s'")
     ;; [[https://github.com/ut4k/windows-dotfiles/blob/eda4ed484078ea4309b42634737934167191951c/AppData/Roaming/.emacs#L964][fzfはうまくうごかないのでfdを代用する]]
   (setq counsel-fzf-cmd "fd --path-separator / \"%s\"")
+
+(require 'dirvish)
+(require 'dirvish-side)
+
+(dirvish-override-dired-mode)
+
+(add-hook 'dirvish-side-follow-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 ;;Warning (evil-collection): Make sure to set `evil-want-keybinding' to nil before loading evil or evil-collection.
 ;;
@@ -49,9 +66,11 @@
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "-") 'dirvish)
 (define-key evil-normal-state-map (kbd "V") 'evil-visual-block)
+(define-key evil-normal-state-map (kbd "D") 'duplicate-line)
 
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)
 (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-line)
+
 
 ;; (define-key evil-insert-state-map (kbd "C-e") 'doom/forward-to-last-non-comment-or-eol)
 ;; (define-key evil-insert-state-map (kbd "C-a") 'doom/backward-to-bol-or-indent)
@@ -188,19 +207,19 @@
 ;;;###autoload
 (require 'color-rg)
 
-;;;###autoload
-  (require 'snails)
-  (setq snails-show-with-frame nil)
-(add-hook 'snails-mode-hook
-	  (lambda ()
-	    ;;(evil-insert-state)
-	    (evil-emacs-state)
-	    )
-	  )
-(with-eval-after-load 'snails
-  (define-key snails-mode-map (kbd "C-n") #'snails-select-next-item)
-  (define-key snails-mode-map (kbd "C-p") #'snails-select-prev-item)
-  )
+;;   ;;;###autoload
+;;   (require 'snails)
+;;   (setq snails-show-with-frame nil)
+;; (add-hook 'snails-mode-hook
+;;     (lambda ()
+;;       ;;(evil-insert-state)
+;;       (evil-emacs-state)
+;;       )
+;;     )
+;; (with-eval-after-load 'snails
+;;   (define-key snails-mode-map (kbd "C-n") #'snails-select-next-item)
+;;   (define-key snails-mode-map (kbd "C-p") #'snails-select-prev-item)
+;;   ;; )
 
 ;;(ivy-mode 1)
 
@@ -234,6 +253,12 @@
      )
     )
 
+;;;###autoload
+(require 'slime)
+(slime-setup)
+(slime-setup '(slime-fancy))
+(setq inferior-lisp-program (executable-find "sbcl"))
+
 (require 'imenu-list)
 
   (setq markdown-imenu-generic-expression
@@ -253,13 +278,6 @@
           (lambda ()
             (setq imenu-generic-expression markdown-imenu-generic-expression)))
     (setq imenu-auto-rescan t)
-
-(require 'dirvish)
-(require 'dirvish-side)
-
-(dirvish-override-dired-mode)
-
-(add-hook 'dirvish-side-follow-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 (require 'helpful)
 
@@ -292,6 +310,60 @@
 ;; (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
 ;; (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
+
+
+;; (require 'cnfonts)
+;; ;; 让 cnfonts 在 Emacs 启动时自动生效。
+;; (cnfonts-mode 1)
+;; ;; 添加两个字号增大缩小的快捷键
+;; (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+;; (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
+
+;; A small minor mode to use a big fringe
+;; (defvar bzg-big-fringe-mode nil)
+;; (define-minor-mode bzg-big-fringe-mode
+;;   "Minor mode to use big fringe in the current buffer."
+;;   :init-value nil
+;;   :global t
+;;   :variable bzg-big-fringe-mode
+;;   :group 'editing-basics
+;;   (if (not bzg-big-fringe-mode)
+;;       (set-fringe-style nil)
+;;     (set-fringe-mode
+;;      (/ (- (frame-pixel-width)
+;;            (* 100 (frame-char-width)))
+;;         2))))
+
+;; ;; Now activate this global minor mode
+;; (bzg-big-fringe-mode 1)
+
+;; ;; To activate the fringe by default and deactivate it when windows
+;; ;; are split vertically, uncomment this:
+;;  (add-hook 'window-configuration-change-hook
+;;            (lambda ()
+;;              (if (delq nil
+;;                        (let ((fw (frame-width)))
+;;                          (mapcar (lambda(w) (< (window-width w) (/ fw 2)))
+;;                                  (window-list))))
+;;                  (bzg-big-fringe-mode 0)
+;;                (bzg-big-fringe-mode 1))))
+
+;; ;; Use a minimal cursor
+;; ;; (setq default-cursor-type 'hbar)
+
+;; ;; Get rid of the indicators in the fringe
+;; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+;;         fringe-bitmaps)
+
+(require 'centered-window)
+(setq cwm-centered-window-width 210)
+(centered-window-mode t)
+(require 'cnfonts)
+;; 让 cnfonts 在 Emacs 启动时自动生效。
+(cnfonts-mode 1)
+;; 添加两个字号增大缩小的快捷键
+(define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
+(define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
 ;; (require 'cnfonts)
 ;; ;; 让 cnfonts 在 Emacs 启动时自动生效。
 ;; (cnfonts-mode 1)
