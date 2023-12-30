@@ -274,3 +274,6 @@
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
 (require 'denote)
+(setq denote-directory (getenv "DENOTE"))
+(setq denote-known-keyword '("knowledge" "denote"))
+(setq denote-file-type nil)

@@ -285,12 +285,12 @@
 ;(require 'flymake-posframe)
 ;(add-hook 'flymake-mode-hook #'flymake-posframe-mode)
 
-(require 'lilypond-mode)
+;; (require 'lilypond-mode)
 
-(autoload 'LilyPond-mode "lilypond-mode" "LilyPond Editing Mode" t)
-(add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
-(add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+;; (autoload 'LilyPond-mode "lilypond-mode" "LilyPond Editing Mode" t)
+;; (add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
+;; (add-to-list 'auto-mode-alist '("\\.ily$" . LilyPond-mode))
+;; (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
 ;; (require 'cnfonts)
 ;; ;; 让 cnfonts 在 Emacs 启动时自动生效。

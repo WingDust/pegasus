@@ -1,0 +1,170 @@
+* lexical
+#+begin_src emacs-lisp
+;;; -*- lexical-binding: t; -*-
+#+end_src
+* elpa 源 
+#+begin_src emacs-lisp
+  (require 'package)
+  ;; 修改 package-archives 后应 package-refresh-contents 
+  ;; package--with-response-buffer-1: http://mirrors.ustc.edu.cn/elpa/melpa/find-file-in-project-20220430.107.el: Not found
+  ;; 上面就是这个原因
+
+  (setq package-archives '(
+                       ;; ("melpa-cn" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+                       ;; ("gnu-cn"   . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+                       ("org-cn"   . "http://mirrors.ustc.edu.cn/elpa/org/")
+                       ;; ("nongnu"   . "http://mirrors.ustc.edu.cn/elpa/nongnu/")
+                       ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                       ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                       ;; ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                       ("nongnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                       ;; ("melpa-cn" . "http://1.15.88.122/melpa/")
+                       ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")
+                       ;; ("org-cn"   . "http://1.15.88.122/org/")
+                       ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
+                       ;; ("nongnu"   . "http://1.15.88.122/nongnu/")
+                       ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
+                       ))
+  (setq package-check-signature nil)
+#+end_src
+
+#+RESULTS:
+
+- [[https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure][How to proceed on package.el signature check failure]]
+* 我只下载不加载，所以这一行要被注释掉
+#+begin_src emacs-lisp
+;; (package-initialize)
+#+end_src
+* 添加请求包路径
+#+begin_src emacs-lisp
+(defun add-packages-to-load-path (package-path)
+  (let* ((subdir
+          (mapcar
+           (lambda (dir)
+                (concat (file-name-as-directory package-path) dir)
+             )
+                (cl-remove-if
+                        #'(lambda (subdir)
+                        (member subdir
+                                '(
+                                "gnupg"
+                                "archives"
+                                "."
+                                ".."
+                                )
+                                )
+                        )
+                        (directory-files  package-path)
+                        )
+           )
+         ))
+
+    (mapc
+     (lambda (i)
+    (add-to-list 'load-path i)
+       )
+     subdir
+        )
+    )
+  )
+(add-packages-to-load-path "~/.emacs.d/elpa")
+(add-packages-to-load-path extension-path )
+(add-to-list 'load-path  extension-path )
+#+end_src
+
+#+RESULTS:
+| ~/.emacs.d/site-lisp/extension/yasnippet | ~/.emacs.d/site-lisp/extension/websocket-bridge | ~/.emacs.d/site-lisp/extension/utils | ~/.emacs.d/site-lisp/extension/snails | ~/.emacs.d/site-lisp/extension/smart-align | ~/.emacs.d/site-lisp/extension/org-super-links | ~/.emacs.d/site-lisp/extension/ob-d2 | ~/.emacs.d/site-lisp/extension/lsp-bridge | ~/.emacs.d/site-lisp/extension/lilypond | ~/.emacs.d/site-lisp/extension/kind-all-the-icons.el | ~/.emacs.d/site-lisp/extension/goto-last-point.el | ~/.emacs.d/site-lisp/extension/flymake-posframe | ~/.emacs.d/site-lisp/extension/color-rg | ~/.emacs.d/site-lisp/extension/centered-window-mode | ~/.emacs.d/site-lisp/extension/awesome-tray | ~/.emacs.d/site-lisp/extension/auto-save | ~/.emacs.d/site-lisp/extension/+text.el | ~/.emacs.d/site-lisp/extension/nano-theme | ~/.emacs.d/site-lisp/extension/utils/ | ~/.emacs.d/site-lisp/extension/ | ~/.emacs.d/site-lisp/config/ | ~/.emacs.d/site-lisp/ | d:/Scoop/apps/emacs/current/share/emacs/29.1/site-lisp | d:/Scoop/apps/emacs/current/share/emacs/site-lisp | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/vc | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/use-package | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/url | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/textmodes | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/progmodes | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/play | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/org | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/nxml | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/net | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/mh-e | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/mail | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/leim | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/language | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/international | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/image | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/gnus | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/eshell | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/erc | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/emulation | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/emacs-lisp | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/cedet | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/calendar | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/calc | d:/Scoop/apps/emacs/current/share/emacs/29.1/lisp/obsolete |
+
+* 取消默认 
+#+begin_src emacs-lisp
+(set-scroll-bar-mode nil)
+(tool-bar-mode -1)
+(menu-bar-mode -1)                      ;禁用菜单栏
+#+end_src
+* 禁用 mode line
+#+begin_src emacs-lisp
+(setq-default mode-line-format nil)
+#+end_src
+* COMMENT 禁用 header line
+#+begin_src emacs-lisp
+(setq-default header-line-format nil)
+;; Emacs默认是禁用
+#+end_src
+* 使用 y/n 代替 yes/no  
+#+begin_src emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+;以 y/n代表 yes/no
+#+end_src
+* 取消加载 Emacs 默认启动页面  
+#+begin_src emacs-lisp
+(setq inhibit-splash-screen t)         ; hide welcome screen
+#+end_src
+* 删除文件到 trash
+#+begin_src emacs-lisp
+(setq delete-by-moving-to-trash t)
+#+end_src
+* 关闭出错时的提示声
+#+begin_src emacs-lisp
+(setq ring-bell-function 'ignore)
+#+end_src
+* 让鼠标滚动更好用
+#+begin_src emacs-lisp
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+#+end_src
+* 关闭自动生产的保存文件
+#+begin_src emacs-lisp
+(setq auto-save-default nil)
+#+end_src
+* 取消显示 scratch buffer 的默认提示信息
+#+begin_src emacs-lisp
+(setq initial-scratch-message nil)
+#+end_src
+* 取消生成 <filename>~,#<filename># .+<filename>
+#+begin_src emacs-lisp
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq create-lockfiles nil)
+#+end_src
+- [[https://emacs-china.org/t/topic/17640][关于修改文件后生成的.#文件]]
+* 相对行号
+#+begin_src emacs-lisp
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode)
+#+end_src
+* 缩进 tab
+#+begin_src emacs-lisp
+(setq-default  tab-width 2) ;; 表示一个 tab 4个字符宽
+(setq-default indent-tabs-mode nil) ;; nil 表示将 tab 替换成空格
+#+end_src
+- [[https://emacs-china.org/t/emacs/19319][我想了解下, emacs 下的缩进到底是怎么设置的…?]]
+* 显示 Emacs GC 时的消息
+#+begin_src emacs-lisp
+;;(setq garbage-collection-messages t)
+#+end_src
+- [[https://www.reddit.com/r/emacs/comments/bakxfn/emacs_gets_stuck_on_gc/][Emacs gets stuck on GC?]]
+#+RESULTS:
+: t
+* 全局软换行
+#+begin_src emacs-lisp
+(global-visual-line-mode)
+#+end_src
+
+#+RESULTS:
+: t
+* center minibuffer
+#+begin_src emacs-lisp
+;; (advice-add #'message :filter-args #'message-filter-center)
+
+;; (defun message-filter-center (args)
+;;   "Center message string.
+;; This is a :filter-args advice for `message`."
+;;   (if (car args)
+;;       (with-current-buffer (window-buffer (minibuffer-window))
+;;     (let ((str (apply #'format-message args)))
+;;       (list "%s" (propertize str 'line-prefix (list 'space :align-to (max 0 (/ (- (window-width (minibuffer-window)) (string-width str)) 2)))))))
+;;     args))
+#+end_src
+- [[https://emacs.stackexchange.com/questions/27767/center-text-in-minibuffer-echo-area][Center text in minibuffer/echo area?]]
+
+#+RESULTS:
