@@ -179,7 +179,7 @@
          (progn
 
         (toggle-frame-fullscreen)
-        (setq site-lisp "~/pegasus/site-lisp/")
+        (setq site-lisp "~/.emacs.d/site-lisp/")
           )
         )
        )
@@ -333,7 +333,7 @@
 ;;(require 'nano-theme)
 (require 'nord-theme)
 (load-theme 'nord t)
-(set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 18))
+;; (set-fontset-font t '(#x4e00 . #x9fff) (font-spec :family "华文楷体" :size 18))
 
 
 (server-start)
