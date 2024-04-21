@@ -407,10 +407,10 @@
 ** 
 #+begin_src emacs-lisp
 ;;;###autoload
-(require 'slime)
-(slime-setup)
-(slime-setup '(slime-fancy))
-(setq inferior-lisp-program (executable-find "sbcl"))
+;; (require 'slime)
+;; (slime-setup)
+;; (slime-setup '(slime-fancy))
+;; (setq inferior-lisp-program (executable-find "sbcl"))
   
 #+end_src
 
@@ -569,6 +569,10 @@
 
 #+RESULTS:
 
+* 
+#+begin_src emacs-lisp
+(require 'xit-mode)
+#+end_src
 
 * util
 

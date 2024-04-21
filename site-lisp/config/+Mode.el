@@ -254,10 +254,10 @@
     )
 
 ;;;###autoload
-(require 'slime)
-(slime-setup)
-(slime-setup '(slime-fancy))
-(setq inferior-lisp-program (executable-find "sbcl"))
+;; (require 'slime)
+;; (slime-setup)
+;; (slime-setup '(slime-fancy))
+;; (setq inferior-lisp-program (executable-find "sbcl"))
 
 (require 'imenu-list)
 
@@ -358,57 +358,8 @@
 (require 'centered-window)
 (setq cwm-centered-window-width 210)
 (centered-window-mode t)
-(require 'cnfonts)
-;; 让 cnfonts 在 Emacs 启动时自动生效。
-(cnfonts-mode 1)
-;; 添加两个字号增大缩小的快捷键
-(define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
-(define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
-;; (require 'cnfonts)
-;; ;; 让 cnfonts 在 Emacs 启动时自动生效。
-;; (cnfonts-mode 1)
-;; ;; 添加两个字号增大缩小的快捷键
-;; (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
-;; (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
 
-;; A small minor mode to use a big fringe
-;; (defvar bzg-big-fringe-mode nil)
-;; (define-minor-mode bzg-big-fringe-mode
-;;   "Minor mode to use big fringe in the current buffer."
-;;   :init-value nil
-;;   :global t
-;;   :variable bzg-big-fringe-mode
-;;   :group 'editing-basics
-;;   (if (not bzg-big-fringe-mode)
-;;       (set-fringe-style nil)
-;;     (set-fringe-mode
-;;      (/ (- (frame-pixel-width)
-;;            (* 100 (frame-char-width)))
-;;         2))))
-
-;; ;; Now activate this global minor mode
-;; (bzg-big-fringe-mode 1)
-
-;; ;; To activate the fringe by default and deactivate it when windows
-;; ;; are split vertically, uncomment this:
-;;  (add-hook 'window-configuration-change-hook
-;;            (lambda ()
-;;              (if (delq nil
-;;                        (let ((fw (frame-width)))
-;;                          (mapcar (lambda(w) (< (window-width w) (/ fw 2)))
-;;                                  (window-list))))
-;;                  (bzg-big-fringe-mode 0)
-;;                (bzg-big-fringe-mode 1))))
-
-;; ;; Use a minimal cursor
-;; ;; (setq default-cursor-type 'hbar)
-
-;; ;; Get rid of the indicators in the fringe
-;; (mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-;;         fringe-bitmaps)
-
-(require 'centered-window)
-(centered-window-mode t)
+(require 'xit-mode)
 
 (require 'org-element)
 

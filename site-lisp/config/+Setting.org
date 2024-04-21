@@ -22,6 +22,7 @@
                        ;; ("gnu-cn"   . "http://1.15.88.122/gnu/")
                        ;; ("org-cn"   . "http://1.15.88.122/org/")
                        ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
+                       ;; ("melpa-stable"   . "http://1.15.88.122/stable-melpa/")
                        ;; ("nongnu"   . "http://1.15.88.122/nongnu/")
                        ;;("stable-melpa" . "http://mirrors.ustc.edu.cn/stable-melpa/")
                        ))
